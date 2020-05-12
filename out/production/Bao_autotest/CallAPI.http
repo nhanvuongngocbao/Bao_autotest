@@ -1,0 +1,11 @@
+GET feature-602.git.env1.resales-online.com/WebApi/V5-3/PropertyDetails.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d&p_apiid=3598&p_refid=3441919
+
+GET data:
+Accept: application/json
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+client.global.get("Property");
+%}
+###
