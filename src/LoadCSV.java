@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +6,10 @@ import java.util.List;
 public class LoadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-
     private static final String FILE_HEADER ="searchType,country,province_Area,location,priceFrom,priceTo,type_Subtype,onlyOwnProperties,onlyFeaturedProperties,ownPropertyFirst,onlyPreferredAgencies,urbanisation";
 
-    public static void writeCsvFile(){
+    public static void writeCsvFile(String fileName){
 
-    }
-
-    public static void main(String[] args) {
-        String fileName = "C:/Users/Admin/Desktop/CSV.csv";
         PropertySearch1 propertySearch = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "");
         List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
         listSearch.add(propertySearch);
@@ -68,5 +62,31 @@ public class LoadCSV {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void readCsvFile(String fileName){
+        BufferedReader br =null;
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static List<String> parseCsvLine(String csvLine) {
+        List<String> result = new ArrayList<String>();
+        if (csvLine != null) {
+            String[] splitData = csvLine.split(COMMA_DELIMITER);
+            for (int i = 0; i < splitData.length; i++) {
+                result.add(splitData[i]);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String fileName = "C:/Users/Admin/Desktop/CSV.csv";
+        writeCsvFile(fileName);
     }
 }
