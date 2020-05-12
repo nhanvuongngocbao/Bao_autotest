@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -10,13 +12,8 @@ public class LoadCSV {
 
     private static final String FILE_HEADER ="searchType,country,province_Area,location,priceFrom,priceTo,type_Subtype,onlyOwnProperties,onlyFeaturedProperties,ownPropertyFirst,onlyPreferredAgencies,urbanisation";
 
-    public static void writeCsvFile(){
-
-    }
-
-    public static void main(String[] args) {
-        String fileName = "C:/Users/Admin/Desktop/CSV.csv";
-        PropertySearch1 propertySearch = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "");
+    public static void writeCsvFile(String fileName){
+        PropertySearch1 propertySearch = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "1");
         List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
         listSearch.add(propertySearch);
         FileWriter fileWriter = null;
@@ -68,5 +65,51 @@ public class LoadCSV {
                 e.printStackTrace();
             }
         }
+    }
+    public static List<String> parseCsvLine(String csvLine) {
+        List<String> result = new ArrayList<String>();
+        if (csvLine != null) {
+            String[] splitData = csvLine.split(COMMA_DELIMITER);
+            for (int i = 0; i < splitData.length; i++) {
+                result.add(splitData[i]);
+            }
+        }
+        return result;
+    }
+    private static void print( List<String> result){
+        System.out.println(result.toString());
+    }
+    public static void readCSV(String fileName){
+        BufferedReader br = null;
+
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(fileName));
+
+            // How to read file in java line by line?
+            while ((line = br.readLine()) != null) {
+                print(parseCsvLine(line));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException crunchifyException) {
+                crunchifyException.printStackTrace();
+            }
+        }
+    }
+    public static String parseSearchString(List<String>  listStr){
+        String string="";
+        StringBuilder builder= new StringBuilder();
+        return string;
+    }
+    public static void main(String[] args) {
+        String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV.csv";
+//        writeCsvFile(fileName);
+        readCSV(fileName);
     }
 }

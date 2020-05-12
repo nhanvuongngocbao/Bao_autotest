@@ -2,6 +2,7 @@
   <library name="Bao_autotest">
     <CLASSES>
       <root url="file://$PROJECT_DIR$" />
+      <root url="jar://$PROJECT_DIR$/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
