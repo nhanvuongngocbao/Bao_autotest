@@ -14,6 +14,9 @@ public class PropertySearch1 {
     private boolean onlyPreferredAgencies;
     private String urbanisation;
 
+    public PropertySearch1() {
+    }
+
     public PropertySearch1(String searchType, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation) {
         this.searchType = searchType;
         this.country = country;
