@@ -12,6 +12,7 @@ public class LoadCSV {
 
         PropertySearch1 propertySearch = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "a");
         PropertySearch1 propertySearch12 = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "b");
+        PropertySearch1 propertySearch123 = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "b","1000610");
         List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
         listSearch.add(propertySearch);
         listSearch.add(propertySearch12);
@@ -110,41 +111,95 @@ public class LoadCSV {
             p.setOwnPropertyFirst(Boolean.parseBoolean(splitData[9]));
             p.setOnlyPreferredAgencies(Boolean.parseBoolean(splitData[10]));
             p.setUrbanisation(splitData[11]);
-            System.out.println(" test nè " +p.toString());
-
+            p.setSecureID(splitData[12]);
+            listSearch.add(p);
         }
 
-
+        System.out.println(" test nè " +listSearch.toString());
         return result;
     }
-//    public static String xuLi(String str){
-//        String st="";
-//        BufferedReader br =null;
-//        try {
-//            String line;
-//            br = new BufferedReader(new FileReader(fileName));
-//            while ((line=br.readLine())!=null){
-//                print(parseCsvLine(line));
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }finally {
-//            try {
-//                if (br != null)
-//                    br.close();
-//            } catch (IOException crunchifyException) {
-//                crunchifyException.printStackTrace();
-//            }
-//        }
-//
-//        return st;
-//    }
+    public static String xuLy(PropertySearch1 pro){
+        String st="select * from tblresale where ";
+        StringBuilder bulider = new StringBuilder();
+        bulider.append(st);
+            switch (pro.getSearchType()){
+                case "ForSale":
+                    bulider.append(" RsForSale = 1 ");
+                    break;
+                case "ForLongRent":
+                    bulider.append(" RsForRentLong = 1 ");
+                    break;
+                case "ForShortRent":
+                    bulider.append(" RsForRentShort = 1 ");
+                    break;
+            }
+            if (pro.getCountry()!= "no"){
+                bulider.append("and RsCountry = "+"'" +pro.getCountry()+"'");
+            }
+            if (pro.getProvince_Area() != "no"){
+                bulider.append(" and (( RsProvince = "+"'"+ pro.getProvince_Area() +"'" + ") OR ( RsArea = "   +"'"+ pro.getProvince_Area() +"'" + " ))");
+            }
+            if (pro.getLocation()!="no"){
+                bulider.append("and RsLocation = "+"'" +pro.getLocation()+"'");
+            }
+            switch (pro.getSearchType()){
+                    case "ForSale":
+                        if (pro.getPriceTo()>0){
+                        bulider.append(" and (RsSalePrice >= "+ pro.getPriceFrom() + " and  RsSalePrice <= " +pro.getPriceTo()+")" );
+                            }
+                        else {
+                            bulider.append("and  RsSalePrice >= "+ pro.getPriceFrom());
+                        }
+                        break;
+                    case "ForLongRent":
+                        if (pro.getPriceTo()>0){
+                            bulider.append(" and (RsLongTermRental >= "+ pro.getPriceFrom() + " and  RsLongTermRental <= " +pro.getPriceTo()+")" );
+                        }
+                        else {
+                            bulider.append(" and RsLongTermRental >= "+ pro.getPriceFrom());
+                        }
+                        break;
+                    case "ForShortRent":
+                        if (pro.getPriceTo()>0){
+                            bulider.append(" and (( RsShortTermRentalLow >= " + pro.getPriceFrom() + " and  RsShortTermRentalLow  <= " +pro.getPriceTo() + ")  OR (  RsShortTermRentalHigh >= "   +  pro.getPriceFrom() + " and RsShortTermRentalHigh <= " +pro.getPriceTo()+"))" ) ;
+                        }
+                        else {
+                            bulider.append("  and (( RsShortTermRentalLow >= "+ pro.getPriceFrom() + ")  OR (  RsShortTermRentalHigh >= "   +  pro.getPriceFrom() +  "))");
+                        }
+                        break;
+                }
+            if(pro.getType_Subtype()!="no"){
+                bulider.append(" and ((RsType = " +"'"+pro.getType_Subtype() +"') OR ( RsSubType = "+"'"+pro.getType_Subtype()+"'"+ "))");
+            }
+            if (pro.isOnlyOwnProperties()==true){
+                bulider.append(" and RsAgencyContactSecureId = "+ pro.getSecureID());
+            }
+            if(pro.isOnlyFeaturedProperties()==true){
+                switch (pro.getSearchType()){
+                    case "ForSale":
+                        bulider.append(" and RsFeaturedPropertySale = 1 ");
+                        break;
+                    case  "ForLongRent" :
+                        bulider.append(" and RsFeaturedPropertyRentalLong = 1 ");
+
+                    case "ForShortRent":
+                        bulider.append(" and RsFeaturedPropertyRentalShort = 1");
+                }
+            }
+            if(pro.getUrbanisation() != "no"){
+                bulider.append("");
+        }
+        st=bulider.toString();
+        return st;
+    }
     private static void print(List<String> l) {
         System.out.println(l.toString());
     }
     public static void main(String[] args) throws IOException {
         String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV.csv";
 //        writeCsvFile(fileName);
-        readCsvFile(fileName);
+        PropertySearch1 propertySearch = new PropertySearch1("ForShortRent", "Spain", "Malaga", "Estepona", 0, 2120, "Apartment", false, false, false, false, "a");
+//        readCsvFile(fileName);
+        System.out.println(xuLy(propertySearch));
     }
 }

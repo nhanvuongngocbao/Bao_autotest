@@ -13,6 +13,7 @@ public class PropertySearch1 {
     private boolean ownPropertyFirst;
     private boolean onlyPreferredAgencies;
     private String urbanisation;
+    private String  secureID;
 
     public PropertySearch1() {
     }
@@ -124,6 +125,30 @@ public class PropertySearch1 {
         this.onlyPreferredAgencies = onlyPreferredAgencies;
     }
 
+    public String getSecureID() {
+        return secureID;
+    }
+
+    public PropertySearch1(String searchType, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation, String secureID) {
+        this.searchType = searchType;
+        this.country = country;
+        this.province_Area = province_Area;
+        this.location = location;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.type_Subtype = type_Subtype;
+        this.onlyOwnProperties = onlyOwnProperties;
+        this.onlyFeaturedProperties = onlyFeaturedProperties;
+        this.ownPropertyFirst = ownPropertyFirst;
+        this.onlyPreferredAgencies = onlyPreferredAgencies;
+        this.urbanisation = urbanisation;
+        this.secureID = secureID;
+    }
+
+    public void setSecureID(String secureID) {
+        this.secureID = secureID;
+    }
+
     public void setUrbanisation(String urbanisation) {
         this.urbanisation = urbanisation;
     }
@@ -145,4 +170,5 @@ public class PropertySearch1 {
                 ", urbanisation='" + urbanisation + '\'' +
                 '}';
     }
+
 }
