@@ -15,7 +15,7 @@ public class LoadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     public static void writeCsvFile(String fileName){
-        PropertySearch1 p2= new PropertySearch1("3598","Spain","Málaga","no",0,25620,"Apartment");
+        PropertySearch1 p2= new PropertySearch1("3598","Spain","Málaga","no",0,256920,"Apartment");
         List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
 //        listSearch.add(propertySearch);
         listSearch.add(p2);
@@ -319,7 +319,7 @@ public class LoadCSV {
         String js= response.body();
         System.out.println(js);
         JSONObject object = new JSONObject(js);
-        if (object.getJSONObject("QueryInfo").getInt("PropertyCount")<=1){
+        if ((object.getJSONObject("QueryInfo").getInt("PropertyCount")<=1)||((object.getJSONObject("QueryInfo").getInt("PropertyCount")-object.getJSONObject("QueryInfo").getInt("CurrentPage")*object.getJSONObject("QueryInfo").getInt("CurrentPage") ==1))) {
             String str = object.getJSONObject("Property").getString("Reference");
             result.add(str);
         }
@@ -328,7 +328,7 @@ public class LoadCSV {
            String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
             result.add(str1);
         }}
-
+        System.out.println(result.toString());
         return result;
     }
     public static void main(String[] args) throws IOException, InterruptedException, SQLException, ClassNotFoundException, JSONException {
