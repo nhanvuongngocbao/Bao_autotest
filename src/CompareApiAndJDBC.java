@@ -54,6 +54,8 @@ public class CompareApiAndJDBC  {
         String js= response.body();
         return js;
     }
+
+
     public static String parseJson2(String string) throws  InterruptedException, IOException, SQLException, ClassNotFoundException{
         // Call HTTP request trả về json reponse
         // Author Bao Nhan

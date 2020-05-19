@@ -1,7 +1,7 @@
 
 
 public class PropertySearch1 {
-    private String searchType;
+    private String apiId ;
     private String country;
     private String province_Area;
     private String location;
@@ -17,24 +17,14 @@ public class PropertySearch1 {
 
     public PropertySearch1() {
     }
-
-    public PropertySearch1(String searchType, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation) {
-        this.searchType = searchType;
-        this.country = country;
-        this.province_Area = province_Area;
-        this.location = location;
-        this.priceFrom = priceFrom;
-        this.priceTo = priceTo;
-        this.type_Subtype = type_Subtype;
-        this.onlyOwnProperties = onlyOwnProperties;
-        this.onlyFeaturedProperties = onlyFeaturedProperties;
-        this.ownPropertyFirst = ownPropertyFirst;
-        this.onlyPreferredAgencies = onlyPreferredAgencies;
-        this.urbanisation = urbanisation;
+    public String getApiId() {
+        return apiId;
     }
-
+    public void setApiId(String apiId) {
+        this.apiId = apiId;
+    }
     public String getSearchType() {
-        return searchType;
+        return apiId;
     }
 
     public String getCountry() {
@@ -82,7 +72,7 @@ public class PropertySearch1 {
     }
 
     public void setSearchType(String searchType) {
-        this.searchType = searchType;
+        this.apiId = searchType;
     }
 
     public void setCountry(String country) {
@@ -129,8 +119,30 @@ public class PropertySearch1 {
         return secureID;
     }
 
-    public PropertySearch1(String searchType, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation, String secureID) {
-        this.searchType = searchType;
+    public void setSecureID(String secureID) {
+        this.secureID = secureID;
+    }
+
+    public void setUrbanisation(String urbanisation) {
+        this.urbanisation = urbanisation;
+    }
+    public PropertySearch1(String apiId, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation) {
+        this.apiId = apiId;
+        this.country = country;
+        this.province_Area = province_Area;
+        this.location = location;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.type_Subtype = type_Subtype;
+        this.onlyOwnProperties = onlyOwnProperties;
+        this.onlyFeaturedProperties = onlyFeaturedProperties;
+        this.ownPropertyFirst = ownPropertyFirst;
+        this.onlyPreferredAgencies = onlyPreferredAgencies;
+        this.urbanisation = urbanisation;
+    }
+
+    public PropertySearch1(String apiId, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype, boolean onlyOwnProperties, boolean onlyFeaturedProperties, boolean ownPropertyFirst, boolean onlyPreferredAgencies, String urbanisation, String secureID) {
+        this.apiId = apiId;
         this.country = country;
         this.province_Area = province_Area;
         this.location = location;
@@ -145,30 +157,26 @@ public class PropertySearch1 {
         this.secureID = secureID;
     }
 
-    public void setSecureID(String secureID) {
-        this.secureID = secureID;
-    }
-
-    public void setUrbanisation(String urbanisation) {
-        this.urbanisation = urbanisation;
+    public PropertySearch1(String apiId, String country, String province_Area, String location, double priceFrom, double priceTo, String type_Subtype) {
+        this.apiId = apiId;
+        this.country = country;
+        this.province_Area = province_Area;
+        this.location = location;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.type_Subtype = type_Subtype;
     }
 
     @Override
     public String toString() {
         return "PropertySearch1{" +
-                "searchType='" + searchType + '\'' +
+                "apiId='" + apiId + '\'' +
                 ", country='" + country + '\'' +
                 ", province_Area='" + province_Area + '\'' +
                 ", location='" + location + '\'' +
                 ", priceFrom=" + priceFrom +
                 ", priceTo=" + priceTo +
                 ", type_Subtype='" + type_Subtype + '\'' +
-                ", onlyOwnProperties=" + onlyOwnProperties +
-                ", onlyFeaturedProperties=" + onlyFeaturedProperties +
-                ", ownPropertyFirst=" + ownPropertyFirst +
-                ", onlyPreferredAgencies=" + onlyPreferredAgencies +
-                ", urbanisation='" + urbanisation + '\'' +
                 '}';
     }
-
 }

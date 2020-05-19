@@ -1,54 +1,43 @@
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
-import java.lang.reflect.Array;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 public class LoadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String FILE_HEADER ="searchType,country,province_Area,location,priceFrom,priceTo,type_Subtype,onlyOwnProperties,onlyFeaturedProperties,ownPropertyFirst,onlyPreferredAgencies,urbanisation";
-
     public static void writeCsvFile(String fileName){
-
-        PropertySearch1 propertySearch = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "a");
-        PropertySearch1 propertySearch12 = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "b");
-        PropertySearch1 propertySearch123 = new PropertySearch1("ForSale", "Spain", "Malaga", "Costa Del Sol", 0, 0, "Apartment", false, false, false, false, "b","1000610");
+        PropertySearch1 p2= new PropertySearch1("3598","Spain","Málaga","no",0,25620,"Apartment");
         List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
-        listSearch.add(propertySearch);
-        listSearch.add(propertySearch12);
+//        listSearch.add(propertySearch);
+        listSearch.add(p2);
         FileWriter fileWriter = null;
-
         try {
             fileWriter = new FileWriter(fileName);
-
-//            fileWriter.append(FILE_HEADER);
-//
-//            fileWriter.append(NEW_LINE_SEPARATOR);
-
-            for (PropertySearch1 propertySearch1 : listSearch) {
-                fileWriter.append(propertySearch1.getSearchType());
+//            for (PropertySearch1 propertySearch1 : listSearch) {
+                for (int i=0;i<listSearch.size();i++){
+                fileWriter.append(listSearch.get(i).getApiId());
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(propertySearch1.getCountry());
+                fileWriter.append(listSearch.get(i).getCountry());
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(propertySearch1.getProvince_Area());
+                fileWriter.append(listSearch.get(i).getProvince_Area());
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(propertySearch1.getLocation());
+                fileWriter.append(listSearch.get(i).getLocation());
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.getPriceFrom()));
+                fileWriter.append(String.valueOf(listSearch.get(i).getPriceFrom()));
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.getPriceTo()));
+                fileWriter.append(String.valueOf(listSearch.get(i).getPriceTo()));
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(propertySearch1.getType_Subtype());
+                fileWriter.append(listSearch.get(i).getType_Subtype());
                 fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.isOnlyOwnProperties()));
-                fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.isOnlyFeaturedProperties()));
-                fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.isOwnPropertyFirst()));
-                fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(String.valueOf(propertySearch1.isOnlyPreferredAgencies()));
-                fileWriter.append(COMMA_DELIMITER);
-                fileWriter.append(propertySearch1.getUrbanisation());
                 fileWriter.append(NEW_LINE_SEPARATOR);
             }
             System.out.println("CSV file was created successfully !!!");
@@ -67,14 +56,14 @@ public class LoadCSV {
         }
     }
 
-    public static void readCsvFile(String fileName) throws IOException {
+    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
         BufferedReader br =null;
+        ArrayList<String> list = new ArrayList<>();
         try {
             String line;
             br = new BufferedReader(new FileReader(fileName));
             while ((line=br.readLine())!=null){
-                System.out.println(line);
-                print(parseCsvLine(line));
+                list.add(xuLy(parseCsvLine(line)));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -86,62 +75,39 @@ public class LoadCSV {
                 crunchifyException.printStackTrace();
             }
         }
-
+        return list;
     }
-    public static List<String> parseCsvLine(String csvLine) {
-        List<String> result = new ArrayList<String>();
-        List<PropertySearch1> listSearch = new ArrayList<PropertySearch1>();
-
+    public static PropertySearch1 parseCsvLine(String csvLine) {
+        PropertySearch1 p = new PropertySearch1("","","","",0,0,"");
         if (csvLine != null) {
             String[] splitData = csvLine.split(COMMA_DELIMITER);
-            for (int i = 0; i < splitData.length; i++) {
-                result.add(splitData[i]);
-            }
-
-            PropertySearch1 p = new PropertySearch1();
-            p.setSearchType(splitData[0]) ;
+            p.setApiId(splitData[0]); ;
             p.setCountry(splitData[1]);
             p.setProvince_Area(splitData[2]);
             p.setLocation(splitData[3]);
             p.setPriceFrom(Double.parseDouble(splitData[4]));
             p.setPriceTo(Double.parseDouble(splitData[5]));
             p.setType_Subtype(splitData[6]);
-            p.setOnlyOwnProperties(Boolean.parseBoolean(splitData[7]));
-            p.setOnlyFeaturedProperties(Boolean.parseBoolean(splitData[8]));
-            p.setOwnPropertyFirst(Boolean.parseBoolean(splitData[9]));
-            p.setOnlyPreferredAgencies(Boolean.parseBoolean(splitData[10]));
-            p.setUrbanisation(splitData[11]);
-            p.setSecureID(splitData[12]);
-            listSearch.add(p);
         }
-
-        System.out.println(" test nè " +listSearch.toString());
-        return result;
+        return p;
     }
     public static String xuLy(PropertySearch1 pro){
-        String st="feature-602.git.env1.resales-online.com/WebApi/V5-3/SearchProperties.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d&p_apiid=3598";
+        // Đọc file CSV sau đó generate ra 1 câu API request
+        String st="feature-602.git.env1.resales-online.com/WebApi/V5-3/SearchProperties.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d";
         StringBuilder bulider = new StringBuilder();
         bulider.append(st);
-//            switch (pro.getSearchType()){
-//                case "ForSale":
-//                    bulider.append("");
-//                    break;
-//                case "ForLongRent":
-//                    bulider.append("");
-//                    break;
-//                case "ForShortRent":
-//                    bulider.append("");
-//                    break;
-//            }
-            if (pro.getCountry()!= "no"){
+            if(!pro.getApiId().equals("no")){
+                bulider.append("&p_apiid="+pro.getApiId());
+            }
+            if (!pro.getCountry().equals("no")){
                 bulider.append("&p_Country="+pro.getCountry());
             }
-            if (pro.getProvince_Area() != "no"){
+            if (!pro.getProvince_Area().equals("no")){
                 bulider.append("&p_area="+pro.getProvince_Area());
             }
-            if (pro.getLocation()!="no"){
-                bulider.append("&p_Location="+pro.getLocation());
-            }
+            if (!pro.getLocation().equals("no")){
+            bulider.append("&p_location="+pro.getLocation());
+                }
             if(pro.getPriceFrom()!=0){
                 bulider.append("&p_Min="+pro.getPriceFrom());
             }
@@ -336,45 +302,40 @@ public class LoadCSV {
                     case "Others":
                         bulider.append("&p_PropertyTypes=4-100");
                         break;
-
-
-
-
-
-
-
                 }
-
-
-            if (pro.isOnlyOwnProperties()==true){
-                bulider.append(" and RsAgencyContactSecureId = "+ pro.getSecureID());
-            }
-            if(pro.isOnlyFeaturedProperties()==true){
-                switch (pro.getSearchType()){
-                    case "ForSale":
-                        bulider.append(" and RsFeaturedPropertySale = 1 ");
-                        break;
-                    case  "ForLongRent" :
-                        bulider.append(" and RsFeaturedPropertyRentalLong = 1 ");
-
-                    case "ForShortRent":
-                        bulider.append(" and RsFeaturedPropertyRentalShort = 1");
-                }
-            }
-            if(pro.getUrbanisation() != "no"){
-                bulider.append("");
-        }
         st=bulider.toString();
         return st;
     }
     private static void print(List<String> l) {
         System.out.println(l.toString());
     }
-    public static void main(String[] args) throws IOException {
+    public static ArrayList<String> getListResponseProperty(String st) throws IOException, InterruptedException, JSONException {
+        ArrayList<String> result = new ArrayList<String>();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://"+st))
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String js= response.body();
+        System.out.println(js);
+        JSONObject object = new JSONObject(js);
+        if (object.getJSONObject("QueryInfo").getInt("PropertyCount")<=1){
+            String str = object.getJSONObject("Property").getString("Reference");
+            result.add(str);
+        }
+        else{
+        for (int i=0;i<object.getJSONArray("Property").length();i++){
+           String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
+            result.add(str1);
+        }}
+
+        return result;
+    }
+    public static void main(String[] args) throws IOException, InterruptedException, SQLException, ClassNotFoundException, JSONException {
         String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV.csv";
 //        writeCsvFile(fileName);
-        PropertySearch1 propertySearch = new PropertySearch1("ForShortRent", "Spain", "Malaga", "Estepona", 0, 2120, "Apartment", false, false, false, false, "a");
-//        readCsvFile(fileName);
-        System.out.println(xuLy(propertySearch));
+        readCsvFile(fileName);
+        String st = readCsvFile(fileName).get(0);
+        getListResponseProperty(st);
     }
 }
