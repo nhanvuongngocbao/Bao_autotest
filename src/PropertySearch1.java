@@ -1,6 +1,7 @@
 
 
 public class PropertySearch1 {
+    // tạo điều kiện Contructor search theo API
     private String apiId ;
     private String country;
     private String province_Area;
