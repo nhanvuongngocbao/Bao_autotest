@@ -410,7 +410,33 @@ public class LoadCSV {
             System.out.println("not match");
         }
     }
+    public static Property getOnePropertyByAPI(String apiId,String rsID) throws JSONException, IOException, InterruptedException {
+        Property property = new Property();
+        String st = "feature-602.git.env1.resales-online.com/WebApi/V5-3/PropertyDetails.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d";
+        StringBuilder bulider = new StringBuilder();
+        bulider.append(st);
+        bulider.append("&P_RefId="+rsID);
+        bulider.append("&P_ApiId="+apiId);
+        st = bulider.toString();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://" + st))
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        JSONObject object = new JSONObject(response.body());
+
+        double price  = object.getJSONObject("Property").getDouble("OriginalPrice");
+        String country = object.getJSONObject("Property").getString("Country");
+        String location = object.getJSONObject("Property").getString("Province");
+        String province = object.getJSONObject("Property").getString("Location");
+        String area = object.getJSONObject("Property").getString("Area");
+        String type = object.getJSONObject("Property").getString("ROLType");
+        String subType = object.getJSONObject("Property").getString("Type");
+        property.setPrice(price);
+        property.setLocation(location);
+        return property;
+    }
     public static void main(String[] args) throws IOException, InterruptedException, SQLException, ClassNotFoundException, JSONException {
         String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV.csv";
 //        writeCsvFile(fileName);
