@@ -6,6 +6,6 @@ Accept: application/json
 client.test("Request executed successfully", function() {
   client.assert(response.status === 200, "Response status is not 200");
 });
-client.global.get("Property");
+client.global.get("Model.Property");
 %}
 ###

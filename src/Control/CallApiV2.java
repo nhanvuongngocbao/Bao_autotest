@@ -1,3 +1,6 @@
+package Control;
+
+import Model.Property;
 import org.json.JSONException;
 import org.json.JSONObject;
 

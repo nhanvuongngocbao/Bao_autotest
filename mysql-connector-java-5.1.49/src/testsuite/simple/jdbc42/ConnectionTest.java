@@ -108,19 +108,19 @@ public class ConnectionTest extends BaseTestCase {
         testConn = (MySQLConnection) DriverManager.getConnection(testUrl, new Properties());
         assertEquals(-1, testConn.getMaxRows());
 
-        // Property in properties only.
+        // Model.Property in properties only.
         testConn = (MySQLConnection) DriverManager.getConnection(testUrl, props);
         assertEquals(123, testConn.getMaxRows());
 
         testUrl += (testUrl.indexOf('?') == -1 ? "?" : "&") + "maxRows=321";
 
-        // Property in URL only.
+        // Model.Property in URL only.
         testConn = (MySQLConnection) DriverManager.getConnection(testUrl);
         assertEquals(321, testConn.getMaxRows());
         testConn = (MySQLConnection) DriverManager.getConnection(testUrl, new Properties());
         assertEquals(321, testConn.getMaxRows());
 
-        // Property in both.
+        // Model.Property in both.
         testConn = (MySQLConnection) DriverManager.getConnection(testUrl, props);
         assertEquals(123, testConn.getMaxRows());
     }

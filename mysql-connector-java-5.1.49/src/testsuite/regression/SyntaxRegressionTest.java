@@ -1664,7 +1664,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         gisFunctions.add(new GisFunction("ST_AsWKB", 5, 6, 1, 0, 0, 0, "g"));
         gisFunctions.add(new GisFunction("ST_AsText", 5, 6, 1, 0, 0, 0, "g"));
         gisFunctions.add(new GisFunction("ST_AsWKT", 5, 6, 1, 0, 0, 0, "g"));
-        // General Geometry Property Functions
+        // General Geometry Model.Property Functions
         gisFunctions.add(new GisFunction("Dimension", 5, 5, 1, 5, 7, 6, "g"));
         gisFunctions.add(new GisFunction("Envelope", 5, 5, 1, 5, 7, 6, "g"));
         gisFunctions.add(new GisFunction("GeometryType", 5, 5, 1, 5, 7, 6, "g"));
@@ -1677,12 +1677,12 @@ public class SyntaxRegressionTest extends BaseTestCase {
         gisFunctions.add(new GisFunction("ST_IsEmpty", 5, 6, 1, 0, 0, 0, "g"));
         gisFunctions.add(new GisFunction("ST_IsSimple", 5, 6, 1, 0, 0, 0, "g"));
         gisFunctions.add(new GisFunction("ST_SRID", 5, 6, 1, 0, 0, 0, "g"));
-        // Point Property Functions
+        // Point Model.Property Functions
         gisFunctions.add(new GisFunction("X", 5, 5, 1, 5, 7, 6, "pt"));
         gisFunctions.add(new GisFunction("Y", 5, 5, 1, 5, 7, 6, "pt"));
         gisFunctions.add(new GisFunction("ST_X", 5, 6, 1, 0, 0, 0, "pt"));
         gisFunctions.add(new GisFunction("ST_Y", 5, 6, 1, 0, 0, 0, "pt"));
-        // LineString and MultiLineString Property Functions
+        // LineString and MultiLineString Model.Property Functions
         gisFunctions.add(new GisFunction("EndPoint", 5, 5, 1, 5, 7, 6, "ls"));
         gisFunctions.add(new GisFunction("GLength", 5, 5, 1, 5, 7, 6, "ls"));
         gisFunctions.add(new GisFunction("IsClosed", 5, 5, 1, 5, 7, 6, "ls"));
@@ -1695,7 +1695,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         gisFunctions.add(new GisFunction("ST_NumPoints", 5, 6, 1, 0, 0, 0, "ls"));
         gisFunctions.add(new GisFunction("ST_PointN", 5, 6, 1, 0, 0, 0, "ls", "2"));
         gisFunctions.add(new GisFunction("ST_StartPoint", 5, 6, 1, 0, 0, 0, "ls"));
-        // Polygon and MultiPolygon Property Functions
+        // Polygon and MultiPolygon Model.Property Functions
         gisFunctions.add(new GisFunction("Area", 5, 5, 1, 5, 7, 6, "pl"));
         gisFunctions.add(new GisFunction("Centroid", 5, 5, 1, 5, 7, 6, "mpl"));
         gisFunctions.add(new GisFunction("ExteriorRing", 5, 5, 1, 5, 7, 6, "pl"));
@@ -1707,7 +1707,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         gisFunctions.add(new GisFunction("ST_InteriorRingN", 5, 6, 1, 0, 0, 0, "pl", "1"));
         gisFunctions.add(new GisFunction("ST_NumInteriorRing", 5, 7, 8, 0, 0, 0, "pl"));
         gisFunctions.add(new GisFunction("ST_NumInteriorRings ", 5, 6, 1, 0, 0, 0, "pl"));
-        // GeometryCollection Property Functions
+        // GeometryCollection Model.Property Functions
         gisFunctions.add(new GisFunction("GeometryN", 5, 5, 1, 5, 7, 6, "gc", "2"));
         gisFunctions.add(new GisFunction("NumGeometries", 5, 5, 1, 5, 7, 6, "gc"));
         gisFunctions.add(new GisFunction("ST_GeometryN", 5, 6, 1, 0, 0, 0, "gc", "2"));

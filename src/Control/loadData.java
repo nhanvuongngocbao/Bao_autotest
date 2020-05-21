@@ -1,4 +1,8 @@
-import javax.swing.*;
+package Control;
+
+import Control.ConnectDB;
+import Model.Property;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-
+package Model;
 
 public class PropertySearch1 {
     // tạo điều kiện Contructor search theo API
@@ -170,7 +170,7 @@ public class PropertySearch1 {
 
     @Override
     public String toString() {
-        return "PropertySearch1{" +
+        return "Model.PropertySearch1{" +
                 "apiId='" + apiId + '\'' +
                 ", country='" + country + '\'' +
                 ", province_Area='" + province_Area + '\'' +

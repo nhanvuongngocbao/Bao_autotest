@@ -1,4 +1,8 @@
-import org.json.JSONArray;
+package Control;
+
+import Control.ConnectDB;
+import Control.loadData;
+import Model.Property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +31,7 @@ public class ParseJson {
         }
         //System.out.println(json);
         JSONObject object = new JSONObject(json);
-        double p = object.getJSONObject("Property").getDouble("OriginalPrice");
+        double p = object.getJSONObject("Model.Property").getDouble("OriginalPrice");
         System.out.println(p);
     //
         Connection conn = ConnectDB.getConnection();

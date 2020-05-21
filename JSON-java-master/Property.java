@@ -28,7 +28,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 /**
- * Converts a Property file data into JSONObject and back.
+ * Converts a Model.Property file data into JSONObject and back.
  * @author JSON.org
  * @version 2015-05-05
  */

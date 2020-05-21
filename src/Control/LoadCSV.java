@@ -1,3 +1,7 @@
+package Control;
+
+import Model.Property;
+import Model.PropertySearch1;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +29,7 @@ public class LoadCSV {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(fileName);
-//            for (PropertySearch1 propertySearch1 : listSearch) {
+//            for (Model.PropertySearch1 propertySearch1 : listSearch) {
             for (int i = 0; i < listSearch.size(); i++) {
                 fileWriter.append(listSearch.get(i).getApiId());
                 fileWriter.append(COMMA_DELIMITER);
@@ -336,7 +340,7 @@ public class LoadCSV {
         // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
         result.add(object.getJSONObject("QueryInfo").getString("ApiId"));
         if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
-            String str = object.getJSONObject("Property").getString("Reference");
+            String str = object.getJSONObject("Model.Property").getString("Reference");
             result.add(str);
         } else {
             for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
@@ -415,6 +419,5 @@ public class LoadCSV {
         System.out.println(st);
         ArrayList<String> temp = getListResponseProperty(st);
         callPropertyDetailAPi(temp.get(0),temp.get(1));
-
     }
 }

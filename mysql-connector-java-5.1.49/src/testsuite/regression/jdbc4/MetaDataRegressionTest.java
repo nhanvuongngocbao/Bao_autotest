@@ -182,8 +182,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
         createProcedure("testBug69298_proc", "(IN param_proc INT) COMMENT 'testBug69298_proc comment' SELECT 1");
 
         // test with standard connection
-        assertFalse("Property useInformationSchema should be false", ((ConnectionProperties) this.conn).getUseInformationSchema());
-        assertTrue("Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) this.conn).getGetProceduresReturnsFunctions());
+        assertFalse("Model.Property useInformationSchema should be false", ((ConnectionProperties) this.conn).getUseInformationSchema());
+        assertTrue("Model.Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) this.conn).getGetProceduresReturnsFunctions());
         checkGetFunctionsForBug69298("Std. Connection MetaData", this.conn);
         checkGetFunctionColumnsForBug69298("Std. Connection MetaData", this.conn);
         checkGetProceduresForBug69298("Std. Connection MetaData", this.conn);
@@ -191,8 +191,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         // test with property useInformationSchema=true
         testConn = getConnectionWithProps("useInformationSchema=true");
-        assertTrue("Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertTrue("Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertTrue("Model.Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertTrue("Model.Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkGetFunctionsForBug69298("Prop. useInfoSchema(1) MetaData", testConn);
         checkGetFunctionColumnsForBug69298("Prop. useInfoSchema(1) MetaData", testConn);
         checkGetProceduresForBug69298("Prop. useInfoSchema(1) MetaData", testConn);
@@ -201,8 +201,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         // test with property getProceduresReturnsFunctions=false
         testConn = getConnectionWithProps("getProceduresReturnsFunctions=false");
-        assertFalse("Property useInformationSchema should be false", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertFalse("Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertFalse("Model.Property useInformationSchema should be false", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertFalse("Model.Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkGetFunctionsForBug69298("Prop. getProcRetFunc(0) MetaData", testConn);
         checkGetFunctionColumnsForBug69298("Prop. getProcRetFunc(0) MetaData", testConn);
         checkGetProceduresForBug69298("Prop. getProcRetFunc(0) MetaData", testConn);
@@ -211,8 +211,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         // test with property useInformationSchema=true & getProceduresReturnsFunctions=false
         testConn = getConnectionWithProps("useInformationSchema=true,getProceduresReturnsFunctions=false");
-        assertTrue("Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertFalse("Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertTrue("Model.Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertFalse("Model.Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkGetFunctionsForBug69298("Prop. useInfoSchema(1) + getProcRetFunc(0) MetaData", testConn);
         checkGetFunctionColumnsForBug69298("Prop. useInfoSchema(1) + getProcRetFunc(0) MetaData", testConn);
         checkGetProceduresForBug69298("Prop. useInfoSchema(1) + getProcRetFunc(0) MetaData", testConn);
@@ -421,28 +421,28 @@ public class MetaDataRegressionTest extends BaseTestCase {
         createFunction("testBug17248345", "(funccol INT) RETURNS INT DETERMINISTIC RETURN 1");
 
         // test with standard connection (getProceduresReturnsFunctions=true & useInformationSchema=false)
-        assertFalse("Property useInformationSchema should be false", ((ConnectionProperties) this.conn).getUseInformationSchema());
-        assertTrue("Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) this.conn).getGetProceduresReturnsFunctions());
+        assertFalse("Model.Property useInformationSchema should be false", ((ConnectionProperties) this.conn).getUseInformationSchema());
+        assertTrue("Model.Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) this.conn).getGetProceduresReturnsFunctions());
         checkMetaDataInfoForBug17248345(this.conn);
 
         // test with property useInformationSchema=true (getProceduresReturnsFunctions=true)
         testConn = getConnectionWithProps("useInformationSchema=true");
-        assertTrue("Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertTrue("Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertTrue("Model.Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertTrue("Model.Property getProceduresReturnsFunctions should be true", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkMetaDataInfoForBug17248345(testConn);
         testConn.close();
 
         // test with property getProceduresReturnsFunctions=false (useInformationSchema=false)
         testConn = getConnectionWithProps("getProceduresReturnsFunctions=false");
-        assertFalse("Property useInformationSchema should be false", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertFalse("Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertFalse("Model.Property useInformationSchema should be false", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertFalse("Model.Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkMetaDataInfoForBug17248345(testConn);
         testConn.close();
 
         // test with property useInformationSchema=true & getProceduresReturnsFunctions=false
         testConn = getConnectionWithProps("useInformationSchema=true,getProceduresReturnsFunctions=false");
-        assertTrue("Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
-        assertFalse("Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
+        assertTrue("Model.Property useInformationSchema should be true", ((ConnectionProperties) testConn).getUseInformationSchema());
+        assertFalse("Model.Property getProceduresReturnsFunctions should be false", ((ConnectionProperties) testConn).getGetProceduresReturnsFunctions());
         checkMetaDataInfoForBug17248345(testConn);
         testConn.close();
     }

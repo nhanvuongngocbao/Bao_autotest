@@ -1498,7 +1498,7 @@ public class ConnectionPropertiesImpl implements Serializable, ConnectionPropert
 
                 for (Map<String, ConnectionProperty> orderedEl : sortMaps.ordered.values()) {
                     for (ConnectionProperty propToGet : orderedEl.values()) {
-                        xmlBuf.append("\n  <Property name=\"");
+                        xmlBuf.append("\n  <Model.Property name=\"");
                         xmlBuf.append(propToGet.getPropertyName());
                         xmlBuf.append("\" required=\"");
                         xmlBuf.append(propToGet.required ? "Yes" : "No");
@@ -1519,12 +1519,12 @@ public class ConnectionPropertiesImpl implements Serializable, ConnectionPropert
                         escapedDescription = escapedDescription.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
 
                         xmlBuf.append(escapedDescription);
-                        xmlBuf.append("\n  </Property>");
+                        xmlBuf.append("\n  </Model.Property>");
                     }
                 }
 
                 for (ConnectionProperty propToGet : sortMaps.alpha.values()) {
-                    xmlBuf.append("\n  <Property name=\"");
+                    xmlBuf.append("\n  <Model.Property name=\"");
                     xmlBuf.append(propToGet.getPropertyName());
                     xmlBuf.append("\" required=\"");
                     xmlBuf.append(propToGet.required ? "Yes" : "No");
@@ -1540,7 +1540,7 @@ public class ConnectionPropertiesImpl implements Serializable, ConnectionPropert
                     xmlBuf.append("\">\n");
                     xmlBuf.append("    ");
                     xmlBuf.append(propToGet.description);
-                    xmlBuf.append("\n  </Property>");
+                    xmlBuf.append("\n  </Model.Property>");
                 }
 
                 xmlBuf.append("\n </PropertyCategory>");

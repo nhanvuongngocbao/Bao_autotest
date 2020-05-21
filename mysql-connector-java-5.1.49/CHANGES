@@ -184,7 +184,7 @@ Version 5.1.42
 
   - Fix for Bug#70808 (17757070), Set sessionVariables in a single query.
 
-  - Fix for Bug#77192 (21170603), Description for the Property replicationConnetionGroup Missing from the Manual.
+  - Fix for Bug#77192 (21170603), Description for the Model.Property replicationConnetionGroup Missing from the Manual.
 
   - Fix for Bug#83834 (25101890), Typo in Connector/J error message.
 
@@ -203,7 +203,7 @@ Version 5.1.42
   - Fix for Bug#25438355, Improper automatic deserialization of binary data.
 
   - Fix for Bug#70785 (17756825), MySQL Connector/J inconsistent init state for autocommit.
-    Property 'elideSetAutoCommits' is temporarily disabled due to Bug#66884. Defaults to 'false' until this bug is fixed.
+    Model.Property 'elideSetAutoCommits' is temporarily disabled due to Bug#66884. Defaults to 'false' until this bug is fixed.
 
   - Fix for Bug#75615 (21181249), Incorrect implementation of Connection.setNetworkTimeout().
 

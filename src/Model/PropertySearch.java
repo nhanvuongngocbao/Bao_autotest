@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 
 public class PropertySearch {
@@ -125,7 +127,7 @@ public class PropertySearch {
 
     @Override
     public String toString() {
-        return "PropertySearch{" +
+        return "Model.PropertySearch{" +
                 "searchType='" + searchType + '\'' +
                 ", country='" + country + '\'' +
                 ", province_Area='" + province_Area + '\'' +

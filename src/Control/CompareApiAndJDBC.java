@@ -1,3 +1,4 @@
+import Model.Property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,8 +77,8 @@ public class CompareApiAndJDBC  {
         // Author Bao Nhan
         // Date created 07-May-2020
         JSONObject object = new JSONObject(parseJson());
-        double p = object.getJSONObject("Property").getDouble("OriginalPrice");
-//        Connection conn = ConnectDB.getConnection();
+        double p = object.getJSONObject("Model.Property").getDouble("OriginalPrice");
+//        Connection conn = Control.ConnectDB.getConnection();
         Property property = getProperty("3441919");
         if (p == property.getPrice()){
             return true;
@@ -108,7 +109,7 @@ public class CompareApiAndJDBC  {
         JSONObject object = new JSONObject(parseJson2(request));
         ArrayList<Property> listProperty = new ArrayList<Property>();
         for (int i=0;i<object.getJSONObject("QueryInfo").getInt("PropertiesPerPage");i++){
-            Property property = new Property(object.getJSONArray("Property").getJSONObject(i).getString("Reference"),object.getJSONArray("Property").getJSONObject(i).getDouble("OriginalPrice"));
+            Property property = new Property(object.getJSONArray("Model.Property").getJSONObject(i).getString("Reference"),object.getJSONArray("Model.Property").getJSONObject(i).getDouble("OriginalPrice"));
             listProperty.add(property);
         }
         System.out.println(listProperty.toString());
@@ -117,7 +118,7 @@ public class CompareApiAndJDBC  {
     }
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException, JSONException {
         System.out.println(Compared1());
-//        ArrayList<Property> listProperty = getAllProperty();
+//        ArrayList<Model.Property> listProperty = getAllProperty();
 //
 //        for (int i=0;i<listProperty.size();i++){
 //            System.out.println(listProperty.get(i).toString());

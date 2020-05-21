@@ -1,3 +1,5 @@
+package Model;
+
 public class Property {
     private String rsID;
     private double price;
@@ -92,7 +94,7 @@ public class Property {
 
     @Override
     public String toString() {
-        return "Property{" +
+        return "Model.Property{" +
                 "rsID='" + rsID + '\'' +
                 ", price=" + price +
                 ", country='" + country + '\'' +
