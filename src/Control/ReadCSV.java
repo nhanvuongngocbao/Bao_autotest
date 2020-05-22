@@ -1,5 +1,6 @@
 package Control;
 
+import Model.PropertySearch;
 import Model.PropertySearch1;
 
 import java.io.BufferedReader;
@@ -24,6 +25,29 @@ public class ReadCSV {
                 list.add(xuLy(parseCsvLine(line)));
             }
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException crunchifyException) {
+                crunchifyException.printStackTrace();
+            }
+        }
+        return list;
+    }
+    public static ArrayList<PropertySearch1> getListPropertySearchCondition(String fileName){
+        ArrayList<PropertySearch1> list = new ArrayList<PropertySearch1>();
+        BufferedReader br = null;
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(fileName));
+            while ((line = br.readLine()) != null) {
+                list.add((parseCsvLine(line)));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -269,9 +293,9 @@ public class ReadCSV {
         st = bulider.toString();
         return st;
     }
-
-    private static void print(List<String> l) {
+    public static void print(List<String> l) {
         System.out.println(l.toString());
     }
+
 }
 
