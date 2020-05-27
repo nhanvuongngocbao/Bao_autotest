@@ -21,6 +21,19 @@ public class SearchAPICondition {
     private String p_Images;
     private String p_New_Devs;
     private String p_Show_Dev_Prices;
+    private String p_RentalType;
+    private String p_RentalDateFrom;
+    private String p_RentalDateTo;
+    private String p_IncludeRented;
+    private String searchType;
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
 
     public SearchAPICondition(String TC_TD, String p1, String p2, String p_Country, String p_Own, String p_Min, String p_Max, String p_PropertyTypes, String p_SubType, String p_Area, String p_Location, String p_OwnPropertiesFirst, String p_RefId, String p_Preferred, String p_Lang, String p_Beds, String p_Baths, String p_Images, String p_New_Devs, String p_Show_Dev_Prices) {
         this.TC_TD = TC_TD;
@@ -43,6 +56,9 @@ public class SearchAPICondition {
         this.p_Images = p_Images;
         this.p_New_Devs = p_New_Devs;
         this.p_Show_Dev_Prices = p_Show_Dev_Prices;
+    }
+
+    public SearchAPICondition() {
     }
 
     public String getTC_TD() {
@@ -193,32 +209,6 @@ public class SearchAPICondition {
         return p_New_Devs;
     }
 
-    @Override
-    public String toString() {
-        return "SearchAPICondition{" +
-                "TC_TD='" + TC_TD + '\'' +
-                ", p1='" + p1 + '\'' +
-                ", p2='" + p2 + '\'' +
-                ", p_Country='" + p_Country + '\'' +
-                ", p_Own='" + p_Own + '\'' +
-                ", p_Min='" + p_Min + '\'' +
-                ", p_Max=" + p_Max +
-                ", p_PropertyTypes='" + p_PropertyTypes + '\'' +
-                ", p_SubType='" + p_SubType + '\'' +
-                ", p_Area='" + p_Area + '\'' +
-                ", p_Location='" + p_Location + '\'' +
-                ", p_OwnPropertiesFirst='" + p_OwnPropertiesFirst + '\'' +
-                ", p_RefId='" + p_RefId + '\'' +
-                ", p_Preferred='" + p_Preferred + '\'' +
-                ", p_Lang='" + p_Lang + '\'' +
-                ", p_Beds=" + p_Beds +
-                ", p_Baths='" + p_Baths + '\'' +
-                ", p_Images='" + p_Images + '\'' +
-                ", p_New_Devs='" + p_New_Devs + '\'' +
-                ", p_Show_Dev_Prices='" + p_Show_Dev_Prices + '\'' +
-                '}';
-    }
-
     public void setP_New_Devs(String p_New_Devs) {
         this.p_New_Devs = p_New_Devs;
     }
@@ -231,4 +221,121 @@ public class SearchAPICondition {
         this.p_Show_Dev_Prices = p_Show_Dev_Prices;
     }
 
+    public String getP_RentalType() {
+        return p_RentalType;
+    }
+
+    public void setP_RentalType(String p_RentalType) {
+        this.p_RentalType = p_RentalType;
+    }
+
+    public String getP_RentalDateFrom() {
+        return p_RentalDateFrom;
+    }
+
+    public void setP_RentalDateFrom(String p_RentalDateFrom) {
+        this.p_RentalDateFrom = p_RentalDateFrom;
+    }
+
+    public String getP_RentalDateTo() {
+        return p_RentalDateTo;
+    }
+
+    public void setP_RentalDateTo(String p_RentalDateTo) {
+        this.p_RentalDateTo = p_RentalDateTo;
+    }
+
+    public String getP_IncludeRented() {
+        return p_IncludeRented;
+    }
+
+    public void setP_IncludeRented(String p_IncludeRented) {
+        this.p_IncludeRented = p_IncludeRented;
+    }
+
+    public SearchAPICondition(String TC_TD, String p1, String p2, String p_Country, String p_Own, String p_Min, String p_Max, String p_PropertyTypes, String p_SubType, String p_Area, String p_Location, String p_OwnPropertiesFirst, String p_RefId, String p_Preferred, String p_Lang, String p_Beds, String p_Baths, String p_Images, String p_New_Devs, String p_Show_Dev_Prices, String p_RentalType, String p_RentalDateFrom, String p_RentalDateTo, String p_IncludeRented) {
+        this.TC_TD = TC_TD;
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p_Country = p_Country;
+        this.p_Own = p_Own;
+        this.p_Min = p_Min;
+        this.p_Max = p_Max;
+        this.p_PropertyTypes = p_PropertyTypes;
+        this.p_SubType = p_SubType;
+        this.p_Area = p_Area;
+        this.p_Location = p_Location;
+        this.p_OwnPropertiesFirst = p_OwnPropertiesFirst;
+        this.p_RefId = p_RefId;
+        this.p_Preferred = p_Preferred;
+        this.p_Lang = p_Lang;
+        this.p_Beds = p_Beds;
+        this.p_Baths = p_Baths;
+        this.p_Images = p_Images;
+        this.p_New_Devs = p_New_Devs;
+        this.p_Show_Dev_Prices = p_Show_Dev_Prices;
+        this.p_RentalType = p_RentalType;
+        this.p_RentalDateFrom = p_RentalDateFrom;
+        this.p_RentalDateTo = p_RentalDateTo;
+        this.p_IncludeRented = p_IncludeRented;
+    }
+
+    public SearchAPICondition(String TC_TD, String p1, String p2, String p_Country, String p_Own, String p_Min, String p_Max, String p_PropertyTypes, String p_SubType, String p_Area, String p_Location, String p_OwnPropertiesFirst, String p_RefId, String p_Preferred, String p_Lang, String p_Beds, String p_Baths, String p_Images, String p_New_Devs, String p_Show_Dev_Prices, String p_RentalType, String p_RentalDateFrom, String p_RentalDateTo, String p_IncludeRented, String searchType) {
+        this.TC_TD = TC_TD;
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p_Country = p_Country;
+        this.p_Own = p_Own;
+        this.p_Min = p_Min;
+        this.p_Max = p_Max;
+        this.p_PropertyTypes = p_PropertyTypes;
+        this.p_SubType = p_SubType;
+        this.p_Area = p_Area;
+        this.p_Location = p_Location;
+        this.p_OwnPropertiesFirst = p_OwnPropertiesFirst;
+        this.p_RefId = p_RefId;
+        this.p_Preferred = p_Preferred;
+        this.p_Lang = p_Lang;
+        this.p_Beds = p_Beds;
+        this.p_Baths = p_Baths;
+        this.p_Images = p_Images;
+        this.p_New_Devs = p_New_Devs;
+        this.p_Show_Dev_Prices = p_Show_Dev_Prices;
+        this.p_RentalType = p_RentalType;
+        this.p_RentalDateFrom = p_RentalDateFrom;
+        this.p_RentalDateTo = p_RentalDateTo;
+        this.p_IncludeRented = p_IncludeRented;
+        this.searchType = searchType;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchAPICondition{" +
+                "TC_TD='" + TC_TD + '\'' +
+                ", p1='" + p1 + '\'' +
+                ", p2='" + p2 + '\'' +
+                ", p_Country='" + p_Country + '\'' +
+                ", p_Own='" + p_Own + '\'' +
+                ", p_Min='" + p_Min + '\'' +
+                ", p_Max='" + p_Max + '\'' +
+                ", p_PropertyTypes='" + p_PropertyTypes + '\'' +
+                ", p_SubType='" + p_SubType + '\'' +
+                ", p_Area='" + p_Area + '\'' +
+                ", p_Location='" + p_Location + '\'' +
+                ", p_OwnPropertiesFirst='" + p_OwnPropertiesFirst + '\'' +
+                ", p_RefId='" + p_RefId + '\'' +
+                ", p_Preferred='" + p_Preferred + '\'' +
+                ", p_Lang='" + p_Lang + '\'' +
+                ", p_Beds='" + p_Beds + '\'' +
+                ", p_Baths='" + p_Baths + '\'' +
+                ", p_Images='" + p_Images + '\'' +
+                ", p_New_Devs='" + p_New_Devs + '\'' +
+                ", p_Show_Dev_Prices='" + p_Show_Dev_Prices + '\'' +
+                ", p_RentalType='" + p_RentalType + '\'' +
+                ", p_RentalDateFrom='" + p_RentalDateFrom + '\'' +
+                ", p_RentalDateTo='" + p_RentalDateTo + '\'' +
+                ", p_IncludeRented='" + p_IncludeRented + '\'' +
+                ", searchType='" + searchType + '\'' +
+                '}';
+    }
 }

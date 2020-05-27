@@ -21,11 +21,12 @@ public class WriteCSV {
 
         SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
                 "Spain","","250000","500000","Apartment","","Costa Del Sol",
-                "Marbella,Estepona","","","","","","","","","");
+                "Marbella,Estepona","","","","","","","","","","","","","","");
         listConditions.add(con1);
 
         try {
             CsvWriter writer= new CsvWriter(fileName);
+
             for (int i = 0; i < listConditions.size(); i++) {
                 writer.write(listConditions.get(i).getTC_TD());
                 writer.write(listConditions.get(i).getP1());
@@ -47,6 +48,10 @@ public class WriteCSV {
                 writer.write(listConditions.get(i).getP_Images());
                 writer.write(listConditions.get(i).getP_New_Devs());
                 writer.write(listConditions.get(i).getP_Show_Dev_Prices());
+                writer.write(listConditions.get(i).getP_RentalDateFrom());
+                writer.write(listConditions.get(i).getP_RentalDateTo());
+                writer.write(listConditions.get(i).getP_IncludeRented());
+                writer.write(listConditions.get(i).getSearchType());
                 writer.write(NEW_LINE_SEPARATOR);
             }
             writer.flush();

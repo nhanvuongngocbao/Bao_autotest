@@ -1,6 +1,7 @@
 package Control_API_V4_4;
 
 import Model.PropertySearch1;
+import Model.SearchAPICondition;
 import com.csvreader.CsvReader;
 
 import java.io.BufferedReader;
@@ -13,283 +14,164 @@ import java.util.List;
 public class ReadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
-        // Đọc file CSV theo mẫu
-        // Đưa ra danh ách các API request
-        BufferedReader br = null;
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            String line;
-            br = new BufferedReader(new FileReader(fileName));
-            while ((line = br.readLine()) != null) {
-                list.add(xuLy(parseCsvLine(line)));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException crunchifyException) {
-                crunchifyException.printStackTrace();
-            }
-        }
-        return list;
-    }
-    public static ArrayList<PropertySearch1> getListPropertySearchCondition(String fileName){
-        ArrayList<PropertySearch1> list = new ArrayList<PropertySearch1>();
-        BufferedReader br = null;
-        try {
-            String line;
-            br = new BufferedReader(new FileReader(fileName));
-            while ((line = br.readLine()) != null) {
-                list.add((parseCsvLine(line)));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException crunchifyException) {
-                crunchifyException.printStackTrace();
-            }
-        }
-        return list;
-    }
+//    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
+//        // Đọc file CSV theo mẫu
+//        // Đưa ra danh ách các API request
+//        BufferedReader br = null;
+//        ArrayList<String> list = new ArrayList<>();
+//        try {
+//            String line;
+//            br = new BufferedReader(new FileReader(fileName));
+//            while ((line = br.readLine()) != null) {
+//                list.add(xuLy(parseCsvLine(line)));
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (br != null)
+//                    br.close();
+//            } catch (IOException crunchifyException) {
+//                crunchifyException.printStackTrace();
+//            }
+//        }
+//        return list;
+//    }
+//    public static ArrayList<PropertySearch1> getListPropertySearchCondition(String fileName){
+//        ArrayList<PropertySearch1> list = new ArrayList<PropertySearch1>();
+//        BufferedReader br = null;
+//        try {
+//            String line;
+//            br = new BufferedReader(new FileReader(fileName));
+//            while ((line = br.readLine()) != null) {
+//                list.add((parseCsvLine(line)));
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (br != null)
+//                    br.close();
+//            } catch (IOException crunchifyException) {
+//                crunchifyException.printStackTrace();
+//            }
+//        }
+//        return list;
+//    }
 
-    public static PropertySearch1 parseCsvLine(String csvLine) {
+    public static SearchAPICondition parseCsvLine(String csvLine) {
         // Đọc 1 line CSV thành đối tượng
         // Author Bao Nhan
-        // Create on 15-May-2020
-
-        PropertySearch1 p = new PropertySearch1("", "", "", "", 0, 0, "");
-        if (csvLine != null) {
+        // Create on 28-May-2020
+        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
+                "Spain","","250000","500000","Apartment","","Costa Del Sol",
+                "Marbella,Estepona","","","","","","","","","");
+        SearchAPICondition condition = new SearchAPICondition();
+        if ( csvLine != null){
             String[] splitData = csvLine.split(COMMA_DELIMITER);
-            p.setApiId(splitData[0]);
-            p.setCountry(splitData[1]);
-            p.setProvince_Area(splitData[2]);
-            p.setLocation(splitData[3]);
-            p.setPriceFrom(Double.parseDouble(splitData[4]));
-            p.setPriceTo(Double.parseDouble(splitData[5]));
-            p.setType_Subtype(splitData[6]);
+            condition.setTC_TD(splitData[0]);
+            condition.setP1(splitData[1]);
+            condition.setP2(splitData[2]);
+            condition.setP_Country(splitData[3]);
+            condition.setP_Own(splitData[4]);
+            condition.setP_Min(splitData[5]);
+            condition.setP_Max(splitData[6]);
+            condition.setP_PropertyTypes(splitData[7]);
+            condition.setP_SubType(splitData[8]);
+            condition.setP_Area(splitData[9]);
+            condition.setP_Location(splitData[10]);
+            condition.setP_OwnPropertiesFirst(splitData[11]);
+            condition.setP_RefId(splitData[12]);
+            condition.setP_Preferred(splitData[13]);
+            condition.setP_Lang(splitData[14]);
+            condition.setP_Beds(splitData[15]);
+            condition.setP_Baths(splitData[16]);
+            condition.setP_Images(splitData[17]);
+            condition.setP_New_Devs(splitData[18]);
+            condition.setP_Show_Dev_Prices(splitData[19]);
+            condition.setP_RentalType(splitData[20]);
+            condition.setP_RentalDateFrom(splitData[21]);
+            condition.setP_RentalDateTo(splitData[22]);
+            condition.setP_IncludeRented(splitData[23]);
+            condition.setSearchType(splitData[24]);
         }
-        return p;
+        return condition;
     }
+    public static String xuLySubType(String st){
+        // xử lí chuỗi subtype dạng chữ thành dạng số theo để truy xuất database và gọi API ví dụ Apartment tương đương với 1-1
+        // Author Bao Nhan
+        // Create on 28-May-2020
 
-    public static String xuLy(PropertySearch1 pro) {
+        String kq="";
+        if (st!=""){
+            String[] splitData = st.split(COMMA_DELIMITER);
+            StringBuilder bulider = new StringBuilder();
+            bulider.append(kq);
+            for (int i =0 ;i<splitData.length;i++){
+                if (i<splitData.length-1){
+                    bulider.append(ParsePropertyType.ParsePropertyType(splitData[i])+",");
+                }
+                else{
+                bulider.append(ParsePropertyType.ParsePropertyType(splitData[i]));
+                }
+            }
+            kq=bulider.toString();
+        }
+        return kq;
+    }
+    public static String xuLy(SearchAPICondition condition) {
         // Đọc file CSV sau đó generate ra 1 câu API request
-        String st = "feature-602.git.env1.resales-online.com/WebApi/V5-3/SearchProperties.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d";
+        String st = "feature-602.git.env1.resales-online.com/weblink.resales-online.com/xml/V4-4/";
         StringBuilder bulider = new StringBuilder();
         bulider.append(st);
-        if (!pro.getApiId().equals("no")) {
-            bulider.append("&p_apiid=" + pro.getApiId());
+        switch (condition.getSearchType()){
+            case "ForSale":
+                bulider.append("SearchResaleXML.php?");
+                break;
+            case "ForRent":
+                bulider.append("SearchRentalXML.php?");
+                break;
         }
-        if (!pro.getCountry().equals("no")) {
-            bulider.append("&p_Country=" + pro.getCountry());
+        if (!condition.getP1().equals("")){
+            bulider.append("&P1="+condition.getP1());
         }
-        if (!pro.getProvince_Area().equals("no")) {
-            bulider.append("&p_area=" + pro.getProvince_Area());
+        if (!condition.getP2().equals("")){
+            bulider.append("&P2="+condition.getP2());
         }
-        if (!pro.getLocation().equals("no")) {
-            bulider.append("&p_location=" + pro.getLocation());
+        if (!condition.getP_Country().equals("")){
+            bulider.append("&P_Country="+condition.getP_Country());
         }
-        if (pro.getPriceFrom() != 0) {
-            bulider.append("&p_Min=" + pro.getPriceFrom());
+        if(!condition.getP_Own().equals("")){
+            bulider.append("&P_Own"+condition.getP_Own());
         }
-        if (pro.getPriceTo() != 0) {
-            bulider.append("&p_Max=" + pro.getPriceTo());
+        if(condition.getP_Min().equals("")){
+            bulider.append("&P_Min=0");
         }
-
-        switch (pro.getType_Subtype()) {
-            case "Apartment":
-                bulider.append("&p_PropertyTypes=1-1");
-                break;
-            case "House":
-                bulider.append("&p_PropertyTypes=2-1");
-                break;
-            case "Plot":
-                bulider.append("&p_PropertyTypes=3-1");
-                break;
-            case "Commercial":
-                bulider.append("&p_PropertyTypes=4-1");
-                break;
-            case "Ground Floor Apartment":
-                bulider.append("&p_PropertyTypes=1-2");
-                break;
-            case "Middle Floor Apartment":
-                bulider.append("&p_PropertyTypes=1-4");
-                break;
-            case "Top Floor Apartment":
-                bulider.append("&p_PropertyTypes=1-5");
-                break;
-            case "Penthouse":
-                bulider.append("&p_PropertyTypes=1-6");
-                break;
-            case "Ground Floor Studio":
-                bulider.append("&p_PropertyTypes=1-7");
-                break;
-            case "Middle Floor Studio":
-                bulider.append("&p_PropertyTypes=1-8");
-                break;
-            case "Top Floor Studio":
-                bulider.append("&p_PropertyTypes=1-9");
-                break;
-            case "Detached Villa":
-                bulider.append("&p_PropertyTypes=2-2");
-                break;
-            case "Semi-Detached House":
-                bulider.append("&p_PropertyTypes=2-4");
-                break;
-            case "Townhouse":
-                bulider.append("&p_PropertyTypes=2-5");
-                break;
-            case "Finca - Cortijo":
-                bulider.append("&p_PropertyTypes=2-6");
-                break;
-            case "Bungalow":
-                bulider.append("&p_PropertyTypes=2-9");
-                break;
-            case "Quad":
-                bulider.append("&p_PropertyTypes=2-10");
-                break;
-            case "Castle":
-                bulider.append("&p_PropertyTypes=2-12");
-                break;
-            case "City Palace":
-                bulider.append("&p_PropertyTypes=2-13");
-                break;
-            case "Wooden Cabin":
-                bulider.append("&p_PropertyTypes=2-14");
-                break;
-            case "Wooden House":
-                bulider.append("&p_PropertyTypes=2-15");
-                break;
-            case "Mobile Home":
-                bulider.append("&p_PropertyTypes=2-16");
-                break;
-            case "Cave Home":
-                bulider.append("&p_PropertyTypes=2-17");
-                break;
-            case "Residential Plot":
-                bulider.append("&p_PropertyTypes=3-2");
-                break;
-            case "Commercial Plot":
-                bulider.append("&p_PropertyTypes=3-3");
-                break;
-            case "Land":
-                bulider.append("&p_PropertyTypes=3-4");
-                break;
-            case "Land with Ruin":
-                bulider.append("&p_PropertyTypes=3-5");
-                break;
-            case "Bar":
-                bulider.append("&p_PropertyTypes=4-2");
-                break;
-            case "Restaurant":
-                bulider.append("&p_PropertyTypes=4-3");
-                break;
-            case "Café":
-                bulider.append("&p_PropertyTypes=4-4");
-                break;
-            case "Hotel":
-                bulider.append("&p_PropertyTypes=4-5");
-                break;
-            case "Hostel":
-                bulider.append("&p_PropertyTypes=4-6");
-                break;
-            case "Bed and Breakfast":
-                bulider.append("&p_PropertyTypes=4-8");
-                break;
-            case "Guest House":
-                bulider.append("&p_PropertyTypes=4-7");
-                break;
-            case "Shop":
-                bulider.append("&p_PropertyTypes=4-9");
-                break;
-            case "Office":
-                bulider.append("&p_PropertyTypes=4-10");
-                break;
-            case "Storage Room":
-                bulider.append("&p_PropertyTypes=4-11");
-                break;
-            case "Parking Space":
-                bulider.append("&p_PropertyTypes=4-12");
-                break;
-            case "Farm":
-                bulider.append("&p_PropertyTypes=4-13");
-                break;
-            case "Night Club":
-                bulider.append("&p_PropertyTypes=4-15");
-                break;
-            case "Warehouse":
-                bulider.append("&p_PropertyTypes=4-16");
-                break;
-            case "Garage":
-                bulider.append("&p_PropertyTypes=4-17");
-                break;
-            case "Business":
-                bulider.append("&p_PropertyTypes=4-18");
-                break;
-            case "Mooring":
-                bulider.append("&p_PropertyTypes=4-19");
-                break;
-            case "Stables":
-                bulider.append("&p_PropertyTypes=4-20");
-                break;
-            case "Kiosk":
-                bulider.append("&p_PropertyTypes=4-21");
-                break;
-            case "Chiringuito":
-                bulider.append("&p_PropertyTypes=4-22");
-                break;
-            case "Beach Bar":
-                bulider.append("&p_PropertyTypes=4-23");
-                break;
-            case "Mechanics":
-                bulider.append("&p_PropertyTypes=4-24");
-                break;
-            case "Hairdressers":
-                bulider.append("&p_PropertyTypes=4-25");
-                break;
-            case "Photography Studio":
-                bulider.append("&p_PropertyTypes=4-26");
-                break;
-            case "Laundry":
-                bulider.append("&p_PropertyTypes=4-27");
-                break;
-            case "Aparthotel":
-                bulider.append("&p_PropertyTypes=4-28");
-                break;
-            case "Apartment Complex":
-                bulider.append("&p_PropertyTypes=4-29");
-                break;
-            case "Residential Home":
-                bulider.append("&p_PropertyTypes=4-30");
-                break;
-            case "Vineyard":
-                bulider.append("&p_PropertyTypes=4-32");
-                break;
-            case "Olive Grove":
-                bulider.append("&p_PropertyTypes=4-33");
-                break;
-            case "Car Park":
-                bulider.append("&p_PropertyTypes=4-34");
-                break;
-            case "Commercial Premises":
-                bulider.append("&p_PropertyTypes=4-35");
-                break;
-            case "Campsite":
-                bulider.append("&p_PropertyTypes=4-36");
-                break;
-            case "With Residence":
-                bulider.append("&p_PropertyTypes=4-37");
-                break;
-            case "Others":
-                bulider.append("&p_PropertyTypes=4-100");
-                break;
+        else if (!condition.getP_Min().equals("")){
+            bulider.append("&P_Min="+condition.getP_Min());
+        }
+        if (!condition.getP_Max().equals("")){
+            bulider.append("&P_Max="+condition.getP_Max());
+        }
+        if (!condition.getP_PropertyTypes().equals("")){
+            bulider.append("&P_PropertyTypes="+ParsePropertyType.ParsePropertyType(condition.getP_PropertyTypes()));
+        }
+        if (!condition.getP_SubType().equals("")){
+            bulider.append("&P_SubType="+ParsePropertyType.ParsePropertyType(condition.getP_SubType()));
+        }
+        if (!condition.getP_Area().equals("")){
+            bulider.append("&P_Area="+condition.getP_Area());
+        }
+        if (!condition.getP_Location().equals("")){
+            bulider.append("&P_Location="+condition.getP_Location());
+        }
+        if (condition.getP_OwnPropertiesFirst().equals("")){
+            bulider.append("&P_P_OwnPropertiesFirst()=0");
+        }
+        else  if (!condition.getP_OwnPropertiesFirst().equals("")){
+            bulider.append("&P_P_OwnPropertiesFirst()=1");
         }
         st = bulider.toString();
         return st;
@@ -301,6 +183,10 @@ public class ReadCSV {
         String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv";
         CsvReader reader = new CsvReader(fileName);
 
+    }
+
+    public static void main(String[] args) {
+        System.out.println(xuLySubType("Others,Apartment"));
     }
 }
 
