@@ -14,52 +14,52 @@ import java.util.List;
 public class ReadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-//    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
-//        // Đọc file CSV theo mẫu
-//        // Đưa ra danh ách các API request
-//        BufferedReader br = null;
-//        ArrayList<String> list = new ArrayList<>();
-//        try {
-//            String line;
-//            br = new BufferedReader(new FileReader(fileName));
-//            while ((line = br.readLine()) != null) {
-//                list.add(xuLy(parseCsvLine(line)));
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (br != null)
-//                    br.close();
-//            } catch (IOException crunchifyException) {
-//                crunchifyException.printStackTrace();
-//            }
-//        }
-//        return list;
-//    }
-//    public static ArrayList<PropertySearch1> getListPropertySearchCondition(String fileName){
-//        ArrayList<PropertySearch1> list = new ArrayList<PropertySearch1>();
-//        BufferedReader br = null;
-//        try {
-//            String line;
-//            br = new BufferedReader(new FileReader(fileName));
-//            while ((line = br.readLine()) != null) {
-//                list.add((parseCsvLine(line)));
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (br != null)
-//                    br.close();
-//            } catch (IOException crunchifyException) {
-//                crunchifyException.printStackTrace();
-//            }
-//        }
-//        return list;
-//    }
+    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
+        // Đọc file CSV theo mẫu
+        // Đưa ra danh ách các API request
+        BufferedReader br = null;
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(fileName));
+            while ((line = br.readLine()) != null) {
+                list.add(xuLy(parseCsvLine(line)));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException crunchifyException) {
+                crunchifyException.printStackTrace();
+            }
+        }
+        return list;
+    }
+    public static ArrayList<SearchAPICondition> getListPropertySearchCondition(String fileName){
+        ArrayList<SearchAPICondition> list = new ArrayList<SearchAPICondition>();
+        BufferedReader br = null;
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(fileName));
+            while ((line = br.readLine()) != null) {
+                list.add((parseCsvLine(line)));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException crunchifyException) {
+                crunchifyException.printStackTrace();
+            }
+        }
+        return list;
+    }
 
     public static SearchAPICondition parseCsvLine(String csvLine) {
         // Đọc 1 line CSV thành đối tượng
@@ -123,7 +123,7 @@ public class ReadCSV {
     }
     public static String xuLy(SearchAPICondition condition) {
         // Đọc file CSV sau đó generate ra 1 câu API request
-        String st = "feature-602.git.env1.resales-online.com/weblink.resales-online.com/xml/V4-4/";
+        String st = "feature-602.git.env1.resales-online.com/weblink/xml/V4-4/";
         StringBuilder bulider = new StringBuilder();
         bulider.append(st);
         switch (condition.getSearchType()){
@@ -132,6 +132,24 @@ public class ReadCSV {
                 break;
             case "ForRent":
                 bulider.append("SearchRentalXML.php?");
+                if (condition.getP_RentalType().equals("")){
+                    bulider.append("&P_RentalType=L");
+                }
+                else if (!condition.getP_RentalType().equals("")){
+                    bulider.append("&P_RentalType="+condition.getP_RentalType());
+                }
+                if (!condition.getP_RentalDateFrom().equals("")){
+                    bulider.append("&P_RentalDateFrom="+condition.getP_RentalDateFrom());
+                }
+                if (!condition.getP_RentalDateTo().equals("")){
+                    bulider.append("&P_RentalDateTo="+condition.getP_RentalDateTo());
+                }
+                if (condition.getP_IncludeRented().equals("")){
+                    bulider.append("&P_IncludeRented=0");
+                }
+                else if (!condition.getP_IncludeRented().equals("")){
+                bulider.append("&P_IncludeRented="+condition.getP_IncludeRented());
+                }
                 break;
         }
         if (!condition.getP1().equals("")){
@@ -168,11 +186,51 @@ public class ReadCSV {
             bulider.append("&P_Location="+condition.getP_Location());
         }
         if (condition.getP_OwnPropertiesFirst().equals("")){
-            bulider.append("&P_P_OwnPropertiesFirst()=0");
+            bulider.append("&P_OwnPropertiesFirst=0");
         }
         else  if (!condition.getP_OwnPropertiesFirst().equals("")){
-            bulider.append("&P_P_OwnPropertiesFirst()=1");
+            bulider.append("&P_OwnPropertiesFirst=1");
         }
+        if(!condition.getP_RefId().equals("")){
+            bulider.append("&P_RefId="+condition.getP_RefId());
+        }
+        if (condition.getP_Preferred().equals("")){
+            bulider.append("&P_Preferred=0");
+        }
+        else  if (!condition.getP_Preferred().equals("")){
+            bulider.append("&P_Preferred="+condition.getP_Preferred());
+        }
+        if (condition.getP_Lang().equals("")){
+            bulider.append("&P_Lang=1");
+        }
+        else  if (!condition.getP_Lang().equals("")){
+            bulider.append("&P_Lang="+condition.getP_Lang());
+        }
+        if (!condition.getP_Beds().equals("")){
+            bulider.append("&P_Beds="+condition.getP_Beds());
+        }
+        if (!condition.getP_Baths().equals("")){
+            bulider.append("&P_Baths="+condition.getP_Baths());
+        }
+        if (condition.getP_Images().equals("")){
+            bulider.append("&P_Images=1");
+        }
+        else  if (!condition.getP_Images().equals("")){
+            bulider.append("&P_Images="+condition.getP_Images());
+        }
+        if (condition.getP_New_Devs().equals("")){
+            bulider.append("&P_New_Devs=0");
+        }
+        else  if (!condition.getP_New_Devs().equals("")){
+            bulider.append("&P_New_Devs="+condition.getP_New_Devs());
+        }
+        if (condition.getP_Show_Dev_Prices().equals("")){
+            bulider.append("&P_Show_Dev_Prices=1");
+        }
+        else  if (!condition.getP_Show_Dev_Prices().equals("")){
+            bulider.append("&P_Show_Dev_Prices="+condition.getP_Show_Dev_Prices());
+        }
+
         st = bulider.toString();
         return st;
     }
@@ -186,7 +244,12 @@ public class ReadCSV {
     }
 
     public static void main(String[] args) {
-        System.out.println(xuLySubType("Others,Apartment"));
+        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
+                "Spain","","250000","500000","Apartment","","Costa Del Sol",
+                "Marbella,Estepona","","","","","","","","","","","","","","ForSale");
+        System.out.println(xuLy(con1));
+
+
     }
 }
 

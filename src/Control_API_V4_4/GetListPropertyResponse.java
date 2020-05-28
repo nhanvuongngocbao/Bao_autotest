@@ -14,7 +14,7 @@ public class GetListPropertyResponse {
     public static ArrayList<String> getListResponseProperty(String st) throws IOException, InterruptedException, JSONException {
         // Lấy danh sách list RSid thỏa điều kiện mà APi request
         // Author Bao Nhan
-        // Create on 18-May-2020
+        // Create on 28-May-2020
         ArrayList<String> result = new ArrayList<String>();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -22,18 +22,20 @@ public class GetListPropertyResponse {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String js = response.body();
-        JSONObject object = new JSONObject(js);
-        // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
-        result.add(object.getJSONObject("QueryInfo").getString("ApiId"));
-        if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
-            String str = object.getJSONObject("Model.Property").getString("Reference");
-            result.add(str);
-        } else {
-            for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
-                String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
-                result.add(str1);
-            }
-        }
+        System.out.println(js);
+
+//        JSONObject object = new JSONObject(js);
+//        // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
+//        result.add(object.getJSONObject("QueryInfo").getString("ApiId"));
+//        if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
+//            String str = object.getJSONObject("Model.Property").getString("Reference");
+//            result.add(str);
+//        } else {
+//            for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
+//                String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
+//                result.add(str1);
+//            }
+//        }
         return result;
     }
 
@@ -96,4 +98,8 @@ public class GetListPropertyResponse {
 //            System.out.println("not match");
 //        }
 //    }
+public static void main(String[] args) throws InterruptedException, JSONException, IOException {
+    String st="feature-602.git.env1.resales-online.com/weblink/xml/V4-4/SearchResaleXML.php?&P1=1000610&P2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d&P_Country=Spain&P_Min=250000&P_Max=500000&P_PropertyTypes=1-1&P_Area=Costa Del Sol&P_Location=Marbella,Estepona&P_OwnPropertiesFirst=0&P_Preferred=0&P_Lang=1&P_Images=1&P_New_Devs=0&P_Show_Dev_Prices=1";
+    getListResponseProperty(st);
+}
 }

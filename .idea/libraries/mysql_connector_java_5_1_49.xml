@@ -5,6 +5,8 @@
       <root url="jar://$PROJECT_DIR$/csv.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/opencsv-2.3-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
