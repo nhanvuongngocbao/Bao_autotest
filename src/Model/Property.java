@@ -16,7 +16,8 @@ public class Property {
     private String rentalDateFrom;
     private String rentalDateTo;
     private String SearchType;
-
+    private double priceRentalLong;
+    private double priceRentalShort;
 
     public String getCountry() {
         return country;
@@ -174,6 +175,42 @@ public class Property {
         SearchType = searchType;
     }
 
+    public double getPriceRentalLong() {
+        return priceRentalLong;
+    }
+
+    public void setPriceRentalLong(double priceRentalLong) {
+        this.priceRentalLong = priceRentalLong;
+    }
+
+    public double getPriceRentalShort() {
+        return priceRentalShort;
+    }
+
+    public void setPriceRentalShort(double priceRentalShort) {
+        this.priceRentalShort = priceRentalShort;
+    }
+
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort) {
+        this.rsID = rsID;
+        this.price = price;
+        this.country = country;
+        this.province = province;
+        this.area = area;
+        this.location = location;
+        this.type = type;
+        this.subtype = subtype;
+        this.beds = beds;
+        this.baths = baths;
+        this.images = images;
+        this.rentalType = rentalType;
+        this.rentalDateFrom = rentalDateFrom;
+        this.rentalDateTo = rentalDateTo;
+        SearchType = searchType;
+        this.priceRentalLong = priceRentalLong;
+        this.priceRentalShort = priceRentalShort;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
@@ -192,6 +229,8 @@ public class Property {
                 ", rentalDateFrom='" + rentalDateFrom + '\'' +
                 ", rentalDateTo='" + rentalDateTo + '\'' +
                 ", SearchType='" + SearchType + '\'' +
+                ", priceRentalLong=" + priceRentalLong +
+                ", priceRentalShort=" + priceRentalShort +
                 '}';
     }
 }

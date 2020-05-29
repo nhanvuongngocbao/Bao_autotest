@@ -180,10 +180,10 @@ public class ReadCSV {
             bulider.append("&P_SubType="+ParsePropertyType.ParsePropertyType(condition.getP_SubType()));
         }
         if (!condition.getP_Area().equals("")){
-            bulider.append("&P_Area="+condition.getP_Area());
+            bulider.append("&P_Area="+ValiDateSearchAPIV4Condition.xuLiProvine_Location(condition.getP_Area()));
         }
         if (!condition.getP_Location().equals("")){
-            bulider.append("&P_Location="+condition.getP_Location());
+            bulider.append("&P_Location="+ValiDateSearchAPIV4Condition.xuLiProvine_Location(condition.getP_Location()));
         }
         if (condition.getP_OwnPropertiesFirst().equals("")){
             bulider.append("&P_OwnPropertiesFirst=0");
