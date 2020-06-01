@@ -23,22 +23,18 @@ public class GetListPropertyResponse {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String xml = response.body();
         JSONObject json = XML.toJSONObject(xml);
-        String jsonparse= json.toString(4);
-        // chuyển reponse từ XML sang json
-         System.out.println(jsonparse);
-
-
-
-//        // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
-//       if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
-//            String str = object.getJSONObject("Model.Property").getString("Reference");
-//            result.add(str);
-//        } else {
-//            for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
-//                String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
-//                result.add(str1);
-//            }
-//        }
+        JSONObject object = new JSONObject(true);
+        object = XML.toJSONObject(xml).getJSONObject("root");
+        // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
+       if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
+            String str = object.getJSONObject("Model.Property").getString("Reference");
+            result.add(str);
+        } else {
+            for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
+                String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
+                result.add(str1);
+            }
+        }
         return result;
     }
 
@@ -104,5 +100,10 @@ public class GetListPropertyResponse {
 public static void main(String[] args) throws InterruptedException, JSONException, IOException {
     String st="feature-602.git.env1.resales-online.com/weblink/xml/V4-4/SearchResaleXML.php?&P1=1000610&P2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d&P_Country=Spain&P_Min=250000&P_Max=500000&P_PropertyTypes=1-1&P_Area=Costa+Del+Sol&P_Location=Marbella,Estepona&P_OwnPropertiesFirst=0&P_Preferred=0&P_Lang=1&P_Images=1&P_New_Devs=0&P_Show_Dev_Prices=1";
     getListResponseProperty(st);
+    ArrayList<String> a= getListResponseProperty(st);
+    for (int i=0;i< a.size();i++){
+        System.out.println(a.get(i));
+    }
+
 }
 }

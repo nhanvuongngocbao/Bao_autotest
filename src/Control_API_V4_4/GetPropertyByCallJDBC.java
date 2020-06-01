@@ -24,6 +24,8 @@ public class GetPropertyByCallJDBC {
             String typeDB = rs.getString("RsType");
             String subTypeDB = rs.getString("RsSubType");
             int beds = Integer.valueOf(rs.getString("RsBeds"));
+            int baths = Integer.valueOf(rs.getString("RsBaths"));
+            int image = Integer.valueOf(rs.getString("RsPicIdTo"));
 
             property.setRsID(id);
             property.setPrice(priceDB);
@@ -34,6 +36,8 @@ public class GetPropertyByCallJDBC {
             property.setType(typeDB);
             property.setSubtype(subTypeDB);
             property.setBeds(beds);
+            property.setBaths(baths);
+            property.setImages(image);
 
         }
         return property;
