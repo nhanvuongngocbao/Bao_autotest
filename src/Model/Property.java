@@ -18,7 +18,9 @@ public class Property {
     private String SearchType;
     private double priceRentalLong;
     private double priceRentalShort;
-
+    private String devID;
+    private double shortTermRentLow;
+    private double shortTermRentHigh;
     public String getCountry() {
         return country;
     }
@@ -211,6 +213,74 @@ public class Property {
         this.priceRentalShort = priceRentalShort;
     }
 
+    public String getDevID() {
+        return devID;
+    }
+
+    public void setDevID(String devID) {
+        this.devID = devID;
+    }
+
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID) {
+        this.rsID = rsID;
+        this.price = price;
+        this.country = country;
+        this.province = province;
+        this.area = area;
+        this.location = location;
+        this.type = type;
+        this.subtype = subtype;
+        this.beds = beds;
+        this.baths = baths;
+        this.images = images;
+        this.rentalType = rentalType;
+        this.rentalDateFrom = rentalDateFrom;
+        this.rentalDateTo = rentalDateTo;
+        SearchType = searchType;
+        this.priceRentalLong = priceRentalLong;
+        this.priceRentalShort = priceRentalShort;
+        this.devID = devID;
+    }
+
+    public double getShortTermRentLow() {
+        return shortTermRentLow;
+    }
+
+    public void setShortTermRentLow(double shortTermRentLow) {
+        this.shortTermRentLow = shortTermRentLow;
+    }
+
+    public double getShortTermRentHigh() {
+        return shortTermRentHigh;
+    }
+
+    public void setShortTermRentHigh(double shortTermRentHigh) {
+        this.shortTermRentHigh = shortTermRentHigh;
+    }
+
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID, double shortTermRentLow, double shortTermRentHigh) {
+        this.rsID = rsID;
+        this.price = price;
+        this.country = country;
+        this.province = province;
+        this.area = area;
+        this.location = location;
+        this.type = type;
+        this.subtype = subtype;
+        this.beds = beds;
+        this.baths = baths;
+        this.images = images;
+        this.rentalType = rentalType;
+        this.rentalDateFrom = rentalDateFrom;
+        this.rentalDateTo = rentalDateTo;
+        SearchType = searchType;
+        this.priceRentalLong = priceRentalLong;
+        this.priceRentalShort = priceRentalShort;
+        this.devID = devID;
+        this.shortTermRentLow = shortTermRentLow;
+        this.shortTermRentHigh = shortTermRentHigh;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
@@ -231,6 +301,9 @@ public class Property {
                 ", SearchType='" + SearchType + '\'' +
                 ", priceRentalLong=" + priceRentalLong +
                 ", priceRentalShort=" + priceRentalShort +
+                ", devID='" + devID + '\'' +
+                ", shortTermRentLow=" + shortTermRentLow +
+                ", shortTermRentHigh=" + shortTermRentHigh +
                 '}';
     }
 }

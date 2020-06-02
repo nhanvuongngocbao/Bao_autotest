@@ -1,8 +1,10 @@
 package Control_API_V4_4;
 
 import Model.Property;
+import Model.SearchAPICondition;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,21 +14,42 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class GetPropertyByCallAPI {
-    public static Property getPropertyByAPI(String apiId,String rsID) throws JSONException, IOException, InterruptedException {
+    public static Property getPropertyByAPI(String queryId, String rsID, SearchAPICondition condition) throws JSONException, IOException, InterruptedException {
         Property pro= new Property();
-        String st = "feature-602.git.env1.resales-online.com/WebApi/V5-3/PropertyDetails.php?p1=1000610&p2=879dab3e2ed47c64e1c76f4d6f364e53b9432a3d";
+        String st = "feature-602.git.env1.resales-online.com/weblink/xml/V4-4/PropertyDetailsXML.asp?";
         StringBuilder bulider = new StringBuilder();
         bulider.append(st);
         bulider.append("&P_RefId="+rsID);
-        bulider.append("&P_ApiId="+apiId);
+        bulider.append("&P_ApiId="+queryId);
+        switch (condition.getSearchType()){
+            case "ForSale":
+                  bulider.append("&SearchType=1");
+                  break;
+            case "ForRent":
+                    if(condition.getP_RentalType().equals("S")){
+                        bulider.append("SearchType=2");
+                        break;
+                    }
+                    else {
+                        bulider.append("SearchType=3");
+                        break;
+                    }
+        }
+        bulider.append("&P1="+condition.getP1());
+        bulider.append("&P2="+condition.getP2());
+        bulider.append("&P_New_Devs="+condition.getP_New_Devs());
+        bulider.append("&P_Show_Dev_Prices="+condition.getP_Show_Dev_Prices());
+        bulider.append("&Lang="+condition.getP_Lang());
         st = bulider.toString();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://" + st))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        JSONObject object = new JSONObject(response.body());
+        String xml = response.body();
+        JSONObject json = XML.toJSONObject(xml);
+        JSONObject object = new JSONObject(true);
+        object = XML.toJSONObject(xml).getJSONObject("root");
 
         double price  = object.getJSONObject("Property").getDouble("OriginalPrice");
         String country = object.getJSONObject("Property").getString("Country");
@@ -35,6 +58,7 @@ public class GetPropertyByCallAPI {
         String area = object.getJSONObject("Property").getString("Area");
         String type = object.getJSONObject("Property").getString("ROLType");
         String subType = object.getJSONObject("Property").getString("Type");
+
         pro.setRsID(rsID);
         pro.setPrice(price);
         pro.setCountry(country);

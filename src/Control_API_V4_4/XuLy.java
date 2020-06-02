@@ -2,6 +2,8 @@ package Control_API_V4_4;
 
 import Model.Property;
 import Model.PropertySearch1;
+import Model.SearchAPICondition;
+import com.csvreader.CsvReader;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -9,11 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class XuLy {
-//    public static void XuLy() throws IOException, JSONException, InterruptedException, SQLException {
-//        String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV.csv";
-//        ArrayList<String> input = ReadCSV.readCsvFile(fileName);
-//        boolean kq = true;
-//        ArrayList<PropertySearch1> inputSearchCondition = ReadCSV.getListPropertySearchCondition(fileName);
+    public static void XuLy() throws IOException, JSONException, InterruptedException, SQLException, CsvReader.FinalizedException, CsvReader.CatastrophicException {
+        String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv";
+        ArrayList<String> input = ReadCSV.readCsvFile(fileName);
+        boolean kq = true;
+        ArrayList<SearchAPICondition> inputSearchCondition = ReadCSV.getListPropertySearchCondition(fileName);
+
 //        for (int i = 0; i < inputSearchCondition.size(); i++) {
 //            System.out.println(inputSearchCondition.get(i).toString());
 //            ArrayList<String> listProperty = GetPropertyByCallAPI.getListResponseProperty(input.get(i));
@@ -77,9 +80,9 @@ public class XuLy {
 //                System.out.println("API "+ inputSearchCondition.get(i).getApiId() + " is true" );
 //            }
 //        }
-//    }
+    }
 //
-//    public static void main(String[] args) throws IOException, InterruptedException, SQLException, JSONException {
-//        XuLy();
-//    }
+    public static void main(String[] args) throws IOException, InterruptedException, SQLException, JSONException, CsvReader.CatastrophicException, CsvReader.FinalizedException {
+        XuLy();
+    }
 }

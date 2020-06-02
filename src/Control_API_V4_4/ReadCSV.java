@@ -1,104 +1,92 @@
 package Control_API_V4_4;
 
-import Model.PropertySearch1;
 import Model.SearchAPICondition;
 import com.csvreader.CsvReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReadCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    public static ArrayList<String> readCsvFile(String fileName) throws IOException {
+    public static ArrayList<String> readCsvFile(String fileName) throws IOException, CsvReader.CatastrophicException, CsvReader.FinalizedException {
         // Đọc file CSV theo mẫu
         // Đưa ra danh ách các API request
-        BufferedReader br = null;
         ArrayList<String> list = new ArrayList<>();
-        try {
-            String line;
-            br = new BufferedReader(new FileReader(fileName));
-            while ((line = br.readLine()) != null) {
-                list.add(xuLy(parseCsvLine(line)));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException crunchifyException) {
-                crunchifyException.printStackTrace();
-            }
+        CsvReader docfile = new CsvReader(fileName);
+        docfile.readHeaders();
+        while (docfile.readRecord()){
+            SearchAPICondition condition = new SearchAPICondition();
+            condition.setTC_TD(docfile.get(0));
+            condition.setP1(docfile.get(1));
+            condition.setP2(docfile.get(2));
+            condition.setP_Country(docfile.get(3));
+            condition.setP_Own(docfile.get(4));
+            condition.setP_Min(docfile.get(5));
+            condition.setP_Max(docfile.get(6));
+            condition.setP_PropertyTypes(docfile.get(7));
+            condition.setP_SubType(docfile.get(8));
+            condition.setP_Area(docfile.get(9));
+            condition.setP_Location(docfile.get(10));
+            condition.setP_OwnPropertiesFirst(docfile.get(11));
+            condition.setP_RefId(docfile.get(12));
+            condition.setP_Preferred(docfile.get(13));
+            condition.setP_Lang(docfile.get(14));
+            condition.setP_Beds(docfile.get(15));
+            condition.setP_Baths(docfile.get(16));
+            condition.setP_Images(docfile.get(17));
+            condition.setP_New_Devs(docfile.get(18));
+            condition.setP_Show_Dev_Prices(docfile.get(19));
+            condition.setP_RentalType(docfile.get(20));
+            condition.setP_RentalDateFrom(docfile.get(21));
+            condition.setP_RentalDateTo(docfile.get(22));
+            condition.setP_IncludeRented(docfile.get(23));
+            condition.setSearchType(docfile.get(24));
+            list.add(xuLy(condition));
         }
         return list;
     }
-    public static ArrayList<SearchAPICondition> getListPropertySearchCondition(String fileName){
+    public static ArrayList<SearchAPICondition> getListPropertySearchCondition(String fileName) throws CsvReader.CatastrophicException, IOException, CsvReader.FinalizedException {
         ArrayList<SearchAPICondition> list = new ArrayList<SearchAPICondition>();
-        BufferedReader br = null;
-        try {
-            String line;
-            br = new BufferedReader(new FileReader(fileName));
-            while ((line = br.readLine()) != null) {
-                list.add((parseCsvLine(line)));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException crunchifyException) {
-                crunchifyException.printStackTrace();
-            }
+        CsvReader docfile = new CsvReader(fileName);
+        docfile.readHeaders();
+        while (docfile.readRecord()){
+            SearchAPICondition condition = new SearchAPICondition();
+            condition.setTC_TD(docfile.get(0));
+            condition.setP1(docfile.get(1));
+            condition.setP2(docfile.get(2));
+            condition.setP_Country(docfile.get(3));
+            condition.setP_Own(docfile.get(4));
+            condition.setP_Min(docfile.get(5));
+            condition.setP_Max(docfile.get(6));
+            condition.setP_PropertyTypes(docfile.get(7));
+            condition.setP_SubType(docfile.get(8));
+            condition.setP_Area(docfile.get(9));
+            condition.setP_Location(docfile.get(10));
+            condition.setP_OwnPropertiesFirst(docfile.get(11));
+            condition.setP_RefId(docfile.get(12));
+            condition.setP_Preferred(docfile.get(13));
+            condition.setP_Lang(docfile.get(14));
+            condition.setP_Beds(docfile.get(15));
+            condition.setP_Baths(docfile.get(16));
+            condition.setP_Images(docfile.get(17));
+            condition.setP_New_Devs(docfile.get(18));
+            condition.setP_Show_Dev_Prices(docfile.get(19));
+            condition.setP_RentalType(docfile.get(20));
+            condition.setP_RentalDateFrom(docfile.get(21));
+            condition.setP_RentalDateTo(docfile.get(22));
+            condition.setP_IncludeRented(docfile.get(23));
+            condition.setSearchType(docfile.get(24));
+            list.add(condition);
         }
+
         return list;
     }
 
-    public static SearchAPICondition parseCsvLine(String csvLine) {
-        // Đọc 1 line CSV thành đối tượng
-        // Author Bao Nhan
-        // Create on 28-May-2020
-        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
-                "Spain","","250000","500000","Apartment","","Costa Del Sol",
-                "Marbella,Estepona","","","","","","","","","");
-        SearchAPICondition condition = new SearchAPICondition();
-        if ( csvLine != null){
-            String[] splitData = csvLine.split(COMMA_DELIMITER);
-            condition.setTC_TD(splitData[0]);
-            condition.setP1(splitData[1]);
-            condition.setP2(splitData[2]);
-            condition.setP_Country(splitData[3]);
-            condition.setP_Own(splitData[4]);
-            condition.setP_Min(splitData[5]);
-            condition.setP_Max(splitData[6]);
-            condition.setP_PropertyTypes(splitData[7]);
-            condition.setP_SubType(splitData[8]);
-            condition.setP_Area(splitData[9]);
-            condition.setP_Location(splitData[10]);
-            condition.setP_OwnPropertiesFirst(splitData[11]);
-            condition.setP_RefId(splitData[12]);
-            condition.setP_Preferred(splitData[13]);
-            condition.setP_Lang(splitData[14]);
-            condition.setP_Beds(splitData[15]);
-            condition.setP_Baths(splitData[16]);
-            condition.setP_Images(splitData[17]);
-            condition.setP_New_Devs(splitData[18]);
-            condition.setP_Show_Dev_Prices(splitData[19]);
-            condition.setP_RentalType(splitData[20]);
-            condition.setP_RentalDateFrom(splitData[21]);
-            condition.setP_RentalDateTo(splitData[22]);
-            condition.setP_IncludeRented(splitData[23]);
-            condition.setSearchType(splitData[24]);
-        }
-        return condition;
-    }
     public static String xuLySubType(String st){
         // xử lí chuỗi subtype dạng chữ thành dạng số theo để truy xuất database và gọi API ví dụ Apartment tương đương với 1-1
         // Author Bao Nhan
@@ -237,19 +225,40 @@ public class ReadCSV {
     public static void print(List<String> l) {
         System.out.println(l.toString());
     }
-    public static void read1(){
-        String fileName = "/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv";
-        CsvReader reader = new CsvReader(fileName);
+    public static void tempReader() throws IOException, CsvReader.CatastrophicException, CsvReader.FinalizedException {
+
+            CsvReader docfile = new CsvReader("/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv");
+            //Bat dau doc file CSV
+            docfile.readHeaders();
+            //Duyet qua tung ROW - Dong du lieu
+            while(docfile.readRecord()){
+                // Lay bang Ten Cot
+                String temp="";
+                docfile.get(0);
+                System.out.println( docfile.get(0));
+                System.out.println( docfile.get(1));
+                System.out.println( docfile.get(2));
+                System.out.println( docfile.get(3));
+                System.out.println( docfile.get(4));
+                System.out.println( docfile.get(5));
+                System.out.println( docfile.get(6));
+                System.out.println( docfile.get(7));
+                System.out.println( docfile.get(8));
+                System.out.println( docfile.get(9));
+                System.out.println( docfile.get(10));
+                System.out.println( docfile.get(11));
+
+            }
+
 
     }
-
-    public static void main(String[] args) {
-        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
-                "Spain","","250000","500000","Apartment","","Costa Del Sol",
-                "Marbella,Estepona","","","","","","","","","","","","","","ForSale");
-        System.out.println(xuLy(con1));
-
-
+    public static void main(String[] args) throws CsvReader.CatastrophicException, IOException, CsvReader.FinalizedException {
+//        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
+//                "Spain","","250000","500000","Apartment","","Costa Del Sol",
+//                "Marbella,Estepona","","","","","","","","","","","","","","ForSale");
+//        System.out.println(xuLy(con1));
+//        tempReader();
+        readCsvFile("/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv");
     }
 }
 

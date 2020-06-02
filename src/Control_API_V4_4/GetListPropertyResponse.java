@@ -26,6 +26,7 @@ public class GetListPropertyResponse {
         JSONObject object = new JSONObject(true);
         object = XML.toJSONObject(xml).getJSONObject("root");
         // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
+        result.add(object.getJSONObject("QueryInfo").getString("QueryId"));
        if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
             String str = object.getJSONObject("Model.Property").getString("Reference");
             result.add(str);
