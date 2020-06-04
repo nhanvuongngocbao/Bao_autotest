@@ -18,10 +18,10 @@ public class WriteCSV {
 
         SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
                 "Spain","","250000","500000","Apartment","","Costa Del Sol",
-                "Marbella,Estepona","","","","","","","","","","","","","","");
+                "Marbella,Estepona","","","","","","","","","","","","","","ForSale");
         SearchAPICondition con2= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",
                 "Spain","","250000","500000","Apartment","","Costa Del Sol",
-                "Marbella,Estepona","","","","","","","","","","","","","","");
+                "Marbella,Estepona","","","","","","","","","","","","","","ForSale");
         listConditions.add(con1);
         listConditions.add(con2);
 

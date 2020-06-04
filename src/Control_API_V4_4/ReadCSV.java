@@ -47,6 +47,7 @@ public class ReadCSV {
             condition.setP_IncludeRented(docfile.get(23));
             condition.setSearchType(docfile.get(24));
             list.add(xuLy(condition));
+            System.out.println(xuLy(condition).toString());
         }
         return list;
     }
@@ -81,6 +82,7 @@ public class ReadCSV {
             condition.setP_RentalDateTo(docfile.get(22));
             condition.setP_IncludeRented(docfile.get(23));
             condition.setSearchType(docfile.get(24));
+
             list.add(condition);
         }
 
@@ -224,33 +226,6 @@ public class ReadCSV {
     }
     public static void print(List<String> l) {
         System.out.println(l.toString());
-    }
-    public static void tempReader() throws IOException, CsvReader.CatastrophicException, CsvReader.FinalizedException {
-
-            CsvReader docfile = new CsvReader("/home/RESALES-ONLINE/baon/Documents/Bao_/CSV_V4.csv");
-            //Bat dau doc file CSV
-            docfile.readHeaders();
-            //Duyet qua tung ROW - Dong du lieu
-            while(docfile.readRecord()){
-                // Lay bang Ten Cot
-                String temp="";
-                docfile.get(0);
-                System.out.println( docfile.get(0));
-                System.out.println( docfile.get(1));
-                System.out.println( docfile.get(2));
-                System.out.println( docfile.get(3));
-                System.out.println( docfile.get(4));
-                System.out.println( docfile.get(5));
-                System.out.println( docfile.get(6));
-                System.out.println( docfile.get(7));
-                System.out.println( docfile.get(8));
-                System.out.println( docfile.get(9));
-                System.out.println( docfile.get(10));
-                System.out.println( docfile.get(11));
-
-            }
-
-
     }
     public static void main(String[] args) throws CsvReader.CatastrophicException, IOException, CsvReader.FinalizedException {
 //        SearchAPICondition con1= new SearchAPICondition("TC_1","1000610","879dab3e2ed47c64e1c76f4d6f364e53b9432a3d",

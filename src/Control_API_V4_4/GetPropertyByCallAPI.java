@@ -50,23 +50,46 @@ public class GetPropertyByCallAPI {
         JSONObject json = XML.toJSONObject(xml);
         JSONObject object = new JSONObject(true);
         object = XML.toJSONObject(xml).getJSONObject("root");
-
-        double price  = object.getJSONObject("Property").getDouble("OriginalPrice");
+        double price ;
+        switch (condition.getSearchType()){
+            case "ForSale":
+                 price  = object.getJSONObject("Property").getDouble("OriginalPrice");
+                 pro.setPrice(price);
+                break;
+            case "ForRent":
+                if (condition.getP_RentalType().equals("")){
+                    price  = object.getJSONObject("Property").getDouble("RentalPrice1");
+                    pro.setPrice(price);
+                    pro.setPriceRentalLong(price);
+                    break;
+                }
+                else{
+                    price  = object.getJSONObject("Property").getDouble("RentalPrice1");
+                    pro.setPrice(price);
+                    double low, high;
+                    low = object.getJSONObject("Property").getDouble("RentalPrice1");
+                    high = object.getJSONObject("Property").getDouble("RentalPrice2");
+                    pro.setShortTermRentLow(low);
+                    pro.setShortTermRentHigh(high);
+                }
+        }
         String country = object.getJSONObject("Property").getString("Country");
         String location = object.getJSONObject("Property").getString("Province");
         String province = object.getJSONObject("Property").getString("Location");
         String area = object.getJSONObject("Property").getString("Area");
         String type = object.getJSONObject("Property").getString("ROLType");
-        String subType = object.getJSONObject("Property").getString("Type");
-
+        String subType = object.getJSONObject("Property").getString("ROLSubType");
+        String beds =object.getJSONObject("Property").getString("Bedrooms");
+        String baths = object.getJSONObject("Property").getString("Bathrooms");
         pro.setRsID(rsID);
-        pro.setPrice(price);
         pro.setCountry(country);
         pro.setLocation(location);
         pro.setArea(area);
         pro.setProvince(province);
         pro.setType(type);
         pro.setSubtype(subType);
+        pro.setBeds(beds);
+        pro.setBaths(baths);
         return pro;
     }
     public static ArrayList<String> getListResponseProperty(String st) throws IOException, InterruptedException, JSONException {
@@ -80,16 +103,23 @@ public class GetPropertyByCallAPI {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String js = response.body();
-        JSONObject object = new JSONObject(js);
+
+        String xml = response.body();
+        JSONObject json = XML.toJSONObject(js);
+        JSONObject object = new JSONObject(true);
+        object = XML.toJSONObject(xml).getJSONObject("root");
+
         // luu API ID tại vị trí đầu tiên trong array để cho phương thưc callPropertyDetailAPi
-        result.add(object.getJSONObject("QueryInfo").getString("ApiId"));
-        if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
-            String str = object.getJSONObject("Model.Property").getString("Reference");
-            result.add(str);
-        } else {
-            for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
-                String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
-                result.add(str1);
+        result.add(object.getJSONObject("QueryInfo").getString("QueryId"));
+    if(object.getJSONObject("QueryInfo").getInt("PropertyCount")>0) {
+            if ((object.getJSONObject("QueryInfo").getInt("PropertyCount") <= 1) || ((object.getJSONObject("QueryInfo").getInt("PropertyCount") - object.getJSONObject("QueryInfo").getInt("CurrentPage") * object.getJSONObject("QueryInfo").getInt("CurrentPage") == 1))) {
+                String str = object.getJSONObject("Property").getString("Reference");
+                result.add(str);
+            } else {
+                for (int i = 0; i < object.getJSONArray("Property").length(); i++) {
+                    String str1 = object.getJSONArray("Property").getJSONObject(i).getString("Reference");
+                    result.add(str1);
+                }
             }
         }
         return result;

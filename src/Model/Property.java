@@ -9,9 +9,9 @@ public class Property {
     private String location;
     private String type;
     private String subtype;
-    private int beds;
-    private int baths;
-    private int images;
+    private String beds;
+    private String baths;
+    private String images;
     private String rentalType;
     private String rentalDateFrom;
     private String rentalDateTo;
@@ -103,27 +103,27 @@ public class Property {
         this.subtype = subtype;
     }
 
-    public int getBeds() {
+    public String getBeds() {
         return beds;
     }
 
-    public void setBeds(int beds) {
+    public void setBeds(String beds) {
         this.beds = beds;
     }
 
-    public int getBaths() {
+    public String getBaths() {
         return baths;
     }
 
-    public void setBaths(int baths) {
+    public void setBaths(String baths) {
         this.baths = baths;
     }
 
-    public int getImages() {
+    public String getImages() {
         return images;
     }
 
-    public void setImages(int images) {
+    public void setImages(String images) {
         this.images = images;
     }
 
@@ -159,7 +159,7 @@ public class Property {
         SearchType = searchType;
     }
 
-    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType) {
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, String beds, String baths, String images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType) {
         this.rsID = rsID;
         this.price = price;
         this.country = country;
@@ -193,7 +193,7 @@ public class Property {
         this.priceRentalShort = priceRentalShort;
     }
 
-    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort) {
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, String beds, String baths, String images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort) {
         this.rsID = rsID;
         this.price = price;
         this.country = country;
@@ -221,7 +221,7 @@ public class Property {
         this.devID = devID;
     }
 
-    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID) {
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, String beds, String baths, String images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID) {
         this.rsID = rsID;
         this.price = price;
         this.country = country;
@@ -258,7 +258,7 @@ public class Property {
         this.shortTermRentHigh = shortTermRentHigh;
     }
 
-    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, int beds, int baths, int images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID, double shortTermRentLow, double shortTermRentHigh) {
+    public Property(String rsID, double price, String country, String province, String area, String location, String type, String subtype, String beds, String baths, String images, String rentalType, String rentalDateFrom, String rentalDateTo, String searchType, double priceRentalLong, double priceRentalShort, String devID, double shortTermRentLow, double shortTermRentHigh) {
         this.rsID = rsID;
         this.price = price;
         this.country = country;

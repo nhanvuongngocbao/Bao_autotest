@@ -2,14 +2,18 @@ package Control_API_V4_4;
 
 import Model.Property;
 import java.sql.*;
+
+import static java.sql.DriverManager.getConnection;
+
+
 public class GetPropertyByCallJDBC {
     public static Property getPropertyForSaleByCallJDBC(String rsID) throws SQLException {
         Property property = new Property();
         String url ="jdbc:mysql://feature-602.git.env1.resales-online.com:3306/resalesonline_feature_602";
         String user="feature_602";
         String password= "AaYK7Hqu9ghHNLNrWUQr";
-        Connection con = DriverManager.getConnection(url,user,password);
-        String sql ="select RsId,RsSalePrice,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsBeds,RsBaths,RsPicIdTo,RsDevId from tblresale where RsID="+rsID.substring(1);
+        Connection con = getConnection(url,user,password);
+        String sql ="select RsId,RsSalePrice,RsProvince,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsBeds,RsBaths,RsPicIdTo,RsDevId from tblresale where RsID="+rsID.substring(1);
         PreparedStatement pr = con.prepareStatement(sql);
         ResultSet rs= pr.executeQuery();
         while (rs.next()){
@@ -21,9 +25,9 @@ public class GetPropertyByCallJDBC {
             String locationDB = rs.getString("RsLocation");
             String typeDB = rs.getString("RsType");
             String subTypeDB = rs.getString("RsSubType");
-            int beds = Integer.valueOf(rs.getString("RsBeds"));
-            int baths = Integer.valueOf(rs.getString("RsBaths"));
-            int image = Integer.valueOf(rs.getString("RsPicIdTo"));
+            String beds = (rs.getString("RsBeds"));
+            String baths = (rs.getString("RsBaths"));
+            String image = (rs.getString("RsPicIdTo"));
             String devID = rs.getString("RsDevId");
             property.setRsID(id);
             property.setPrice(priceDB);
@@ -37,6 +41,7 @@ public class GetPropertyByCallJDBC {
             property.setBaths(baths);
             property.setImages(image);
             property.setDevID(devID);
+            property.setSearchType("ForSale");
         }
         return property;
     }
@@ -45,8 +50,8 @@ public class GetPropertyByCallJDBC {
         String url ="jdbc:mysql://feature-602.git.env1.resales-online.com:3306/resalesonline_feature_602";
         String user="feature_602";
         String password= "AaYK7Hqu9ghHNLNrWUQr";
-        Connection con = DriverManager.getConnection(url,user,password);
-        String sql ="select RsId,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsBeds,RsBaths,RsPicIdTo,RsDevId,RsForRent,RsShortTermRentalLow,RsLongTermRental from tblresale join tblrentalcalendar on RsId=RcRsId where RsID="+rsID.substring(1);
+        Connection con = getConnection(url,user,password);
+        String sql ="select RsId,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsProvince,RsBeds,RsBaths,RsPicIdTo,RsDevId,RsForRent,RsShortTermRentalLow,RsLongTermRental from tblresale join tblrentalcalendar on RsId=RcRsId where RsID="+rsID.substring(1);
         PreparedStatement pr = con.prepareStatement(sql);
         ResultSet rs= pr.executeQuery();
         while (rs.next()){
@@ -58,9 +63,9 @@ public class GetPropertyByCallJDBC {
             String locationDB = rs.getString("RsLocation");
             String typeDB = rs.getString("RsType");
             String subTypeDB = rs.getString("RsSubType");
-            int beds = Integer.valueOf(rs.getString("RsBeds"));
-            int baths = Integer.valueOf(rs.getString("RsBaths"));
-            int image = Integer.valueOf(rs.getString("RsPicIdTo"));
+            String beds = (rs.getString("RsBeds"));
+            String baths = (rs.getString("RsBaths"));
+            String image = (rs.getString("RsPicIdTo"));
             String devID = rs.getString("RsDevId");
             property.setRsID(id);
             property.setPrice(priceDB);
@@ -74,6 +79,7 @@ public class GetPropertyByCallJDBC {
             property.setBaths(baths);
             property.setImages(image);
             property.setDevID(devID);
+            property.setSearchType("ForRent");
         }
         return property;
     }
@@ -82,8 +88,8 @@ public class GetPropertyByCallJDBC {
         String url ="jdbc:mysql://feature-602.git.env1.resales-online.com:3306/resalesonline_feature_602";
         String user="feature_602";
         String password= "AaYK7Hqu9ghHNLNrWUQr";
-        Connection con = DriverManager.getConnection(url,user,password);
-        String sql ="select RsId,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsBeds,RsBaths,RsPicIdTo,RsDevId,RsForRent,RsShortTermRentalLow,RsShortTermRentalHigh,RsLongTermRental from tblresale join tblrentalcalendarwhere RsID="+rsID.substring(1);
+        Connection con = getConnection(url,user,password);
+        String sql ="select RsId,RsCountry,RsArea,RsLocation,RsType,RsSubType,RsProvince,RsBeds,RsBaths,RsPicIdTo,RsDevId,RsForRent,RsShortTermRentalLow,RsShortTermRentalHigh,RsLongTermRental from tblresale join tblrentalcalendarwhere RsID="+rsID.substring(1);
         PreparedStatement pr = con.prepareStatement(sql);
         ResultSet rs= pr.executeQuery();
         while (rs.next()){
@@ -96,9 +102,9 @@ public class GetPropertyByCallJDBC {
             String locationDB = rs.getString("RsLocation");
             String typeDB = rs.getString("RsType");
             String subTypeDB = rs.getString("RsSubType");
-            int beds = rs.getInt("RsBeds");
-            int baths = rs.getInt("RsBaths");
-            int image = rs.getInt("RsPicIdTo");
+            String beds = rs.getString("RsBeds");
+            String baths = rs.getString("RsBaths");
+            String image = rs.getString("RsPicIdTo");
             String devID = rs.getString("RsDevId");
             property.setRsID(id);
             property.setShortTermRentHigh(shortTermRentHigh);
@@ -113,6 +119,7 @@ public class GetPropertyByCallJDBC {
             property.setBaths(baths);
             property.setImages(image);
             property.setDevID(devID);
+            property.setSearchType("ForRent");
         }
         return property;
     }

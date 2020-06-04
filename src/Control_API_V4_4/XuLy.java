@@ -16,13 +16,12 @@ public class XuLy {
         ArrayList<String> input = ReadCSV.readCsvFile(fileName);
         boolean kq = true;
         ArrayList<SearchAPICondition> inputSearchCondition = ReadCSV.getListPropertySearchCondition(fileName);
-
-//        for (int i = 0; i < inputSearchCondition.size(); i++) {
-//            System.out.println(inputSearchCondition.get(i).toString());
-//            ArrayList<String> listProperty = GetPropertyByCallAPI.getListResponseProperty(input.get(i));
+        for (int i = 0; i < inputSearchCondition.size(); i++) {
+            ArrayList<String> listProperty = GetPropertyByCallAPI.getListResponseProperty(input.get(i));
 //            //lấy ra toàn bộ property thỏa mản
-//            for (int j = 1; j < listProperty.size(); j++) {
-//                Property property = GetPropertyByCallJDBC.getPropertyByCallJDBC(listProperty.get(j));
+            for (int j = 1; j < listProperty.size(); j++) {
+                Property property = GetPropertyByCallJDBC.getPropertyForSaleByCallJDBC(listProperty.get(j));
+                System.out.println(property.toString());
 //                if (!inputSearchCondition.get(i).getCountry().equals("no")) {
 //                    if (!inputSearchCondition.get(i).getCountry().equals(property.getCountry())) {
 //                        System.out.println(property.getRsID()+ " Wrong country");
@@ -78,8 +77,8 @@ public class XuLy {
 //            }
 //            else {
 //                System.out.println("API "+ inputSearchCondition.get(i).getApiId() + " is true" );
-//            }
-//        }
+            }
+        }
     }
 //
     public static void main(String[] args) throws IOException, InterruptedException, SQLException, JSONException, CsvReader.CatastrophicException, CsvReader.FinalizedException {
